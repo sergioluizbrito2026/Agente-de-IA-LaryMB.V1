@@ -3,3 +3,5 @@ numpy==1.26.4
 pandas==2.2.3
 packaging>=24.2
 groq==0.31.0
+streamlit
+groq
