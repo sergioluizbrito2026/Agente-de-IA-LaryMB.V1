@@ -7,33 +7,27 @@ import streamlit as st
 from groq import Groq
 
 # ============================================================
-# LARYMB AI
-# Intelligent AI Platform
-# Versão 3.0
+# LARYMB AI — CONFIGURAÇÃO DA PÁGINA
 # ============================================================
 
 st.set_page_config(
-    page_title="LaryMB",
+    page_title="LaryMB AI",
     page_icon="✦",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded",
 )
 
 # ============================================================
-# CONFIGURAÇÕES
+# CONFIGURAÇÕES E CONSTANTES
 # ============================================================
 
 APP_NAME = "LaryMB"
-APP_VERSION = "3.0.0"
-
+APP_VERSION = "3.1.0"
 MODEL_NAME = "llama-3.3-70b-versatile"
 DB_PATH = Path("larymb.db")
 
 MAX_HISTORY_MESSAGES = 30
 MAX_RESPONSE_TOKENS = 4096
-
-SUPPORT_EMAIL = "sergiolmendes2026@gmail.com"
-SUPPORT_PHONE = "5511994376755"
 
 # ============================================================
 # LOG
@@ -46,128 +40,90 @@ logging.basicConfig(
 logger = logging.getLogger("larymb")
 
 # ============================================================
-# ESTILO VISUAL
+# ESTILO VISUAL (DESIGN MINIMALISTA E LIMPO)
 # ============================================================
 
 st.markdown(
     """
     <style>
+    /* Tema geral escuro e sofisticado */
     .stApp {
-        background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.08), transparent 35%), #0b0d12;
-        color: #f8fafc;
+        background-color: #121212;
+        color: #e0e0e0;
     }
+    
+    /* Centralização e largura do container principal */
     .main .block-container {
-        max-width: 1100px;
-        padding-top: 1.5rem;
-        padding-bottom: 7rem;
+        max-width: 850px;
+        padding-top: 2rem;
+        padding-bottom: 6rem;
     }
+
+    /* Sidebar limpa */
     [data-testid="stSidebar"] {
-        background: #101217;
-        border-right: 1px solid #232832;
-    }
-    [data-testid="stSidebar"] > div:first-child {
-        padding-top: 1rem;
+        background-color: #18181b;
+        border-right: 1px solid #27272a;
     }
     [data-testid="stSidebar"] .stButton > button {
         background: transparent;
-        border: 1px solid transparent;
-        color: #cbd5e1;
+        border: none;
+        color: #a1a1aa;
         text-align: left;
-        border-radius: 9px;
-        min-height: 40px;
+        border-radius: 6px;
         font-size: 13px;
+        padding: 6px 10px;
     }
     [data-testid="stSidebar"] .stButton > button:hover {
-        background: #191d25;
-        border-color: #2b3140;
+        background: #27272a;
         color: #ffffff;
     }
+
+    /* Logo da Sidebar */
     .larymb-logo {
-        font-size: 27px;
-        font-weight: 750;
-        letter-spacing: -0.8px;
-        color: #ffffff;
+        font-size: 18px;
+        font-weight: 600;
+        color: #f4f4f5;
+        letter-spacing: -0.5px;
+        padding-bottom: 2px;
     }
     .larymb-logo span {
-        color: #8b5cf6;
+        color: #a78bfa;
     }
     .larymb-version {
-        color: #64748b;
+        color: #71717a;
         font-size: 11px;
-        margin-top: -4px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
-    .home-container {
-        margin-top: 11vh;
+
+    /* Tela inicial limpa (sem cards cheios de ícones) */
+    .welcome-container {
         text-align: center;
+        margin-top: 18vh;
+        margin-bottom: 4vh;
     }
-    .home-icon {
-        font-size: 44px;
+    .welcome-title {
+        font-size: 32px;
+        font-weight: 600;
+        color: #f4f4f5;
+        letter-spacing: -0.8px;
         margin-bottom: 8px;
     }
-    .home-title {
-        font-size: 40px;
-        font-weight: 700;
-        letter-spacing: -1.5px;
-        color: #f8fafc;
-        margin-bottom: 8px;
+    .welcome-subtitle {
+        color: #a1a1aa;
+        font-size: 14px;
     }
-    .home-title span {
-        color: #8b5cf6;
-    }
-    .home-subtitle {
-        color: #94a3b8;
-        font-size: 15px;
-        margin-bottom: 35px;
-    }
-    .suggestion-title {
-        color: #64748b;
-        font-size: 12px;
-        text-align: center;
-        margin-top: 25px;
-        margin-bottom: 10px;
-    }
-    [data-testid="stChatMessage"] {
-        background: transparent;
-        border: none;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
+
+    /* Caixa de input do chat */
     [data-testid="stChatInput"] {
-        background: #171a21 !important;
-        border: 1px solid #303644 !important;
-        border-radius: 15px !important;
+        background-color: #18181b !important;
+        border: 1px solid #27272a !important;
+        border-radius: 12px !important;
     }
     [data-testid="stChatInput"] textarea {
-        color: #f8fafc !important;
+        color: #f4f4f5 !important;
     }
-    .mini-card {
-        background: #12151b;
-        border: 1px solid #252b36;
-        border-radius: 12px;
-        padding: 15px;
-        height: 100%;
-    }
-    .mini-card-title {
-        color: #e2e8f0;
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-    .mini-card-text {
-        color: #64748b;
-        font-size: 12px;
-    }
-    .status-online {
-        color: #4ade80;
-        font-size: 11px;
-    }
-    .footer {
-        text-align: center;
-        color: #475569;
-        font-size: 10px;
-        margin-top: 30px;
-    }
+
+    /* Ocultar elementos padrão desnecessários do Streamlit */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
     </style>
@@ -176,7 +132,7 @@ st.markdown(
 )
 
 # ============================================================
-# BANCO DE DADOS
+# BANCO DE DADOS (SQLITE)
 # ============================================================
 
 def get_connection():
@@ -221,12 +177,6 @@ def init_database():
                 FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
             )
         """)
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS settings (
-                key TEXT PRIMARY KEY,
-                value TEXT NOT NULL
-            )
-        """)
         conn.commit()
     except sqlite3.Error as error:
         logger.exception("Erro inicializando banco: %s", error)
@@ -237,7 +187,7 @@ def init_database():
 init_database()
 
 # ============================================================
-# CONVERSAS E MENSAGENS
+# GERENCIAMENTO DE CONVERSAS E MENSAGENS
 # ============================================================
 
 def create_conversation(title="Nova conversa"):
@@ -262,16 +212,6 @@ def get_conversation(conversation_id):
     conn = get_connection()
     try:
         return conn.execute("SELECT * FROM conversations WHERE id = ?", (conversation_id,)).fetchone()
-    finally:
-        conn.close()
-
-def delete_conversation(conversation_id):
-    conn = get_connection()
-    try:
-        conn.execute("DELETE FROM messages WHERE conversation_id = ?", (conversation_id,))
-        conn.execute("DELETE FROM memories WHERE conversation_id = ?", (conversation_id,))
-        conn.execute("DELETE FROM conversations WHERE id = ?", (conversation_id,))
-        conn.commit()
     finally:
         conn.close()
 
@@ -320,23 +260,22 @@ def get_statistics():
         conn.close()
 
 # ============================================================
-# SYSTEM PROMPT
+# SYSTEM PROMPT (DIRETRIZES DA LARYMB)
 # ============================================================
 
 SYSTEM_PROMPT = """
-# LARYMB AI — SYSTEM PROMPT
-## IDENTIDADE
-Você é o LaryMB, um assistente de inteligência artificial moderno, inteligente, confiável e versátil.
-Seu objetivo é ajudar o usuário a pensar, criar, aprender, analisar problemas, desenvolver soluções e trabalhar com tecnologia.
+Você é a LaryMB, uma assistente de Inteligência Artificial moderna, profissional, confiável e orientada à resolução de problemas.
+Sua missão é ajudar o usuário a transformar perguntas, problemas e ideias em respostas claras, úteis e acionáveis.
+Sempre priorize contexto, precisão, clareza e utilidade. Nunca invente informações ou dados técnicos.
 """
 
 # ============================================================
-# CLIENTE GROQ & GERAÇÃO
+# CLIENTE GROQ
 # ============================================================
 
 def get_groq_client():
     if "GROQ_API_KEY" not in st.secrets:
-        raise RuntimeError("GROQ_API_KEY não configurada.")
+        raise RuntimeError("GROQ_API_KEY não configurada nos segredos do Streamlit.")
     api_key = st.secrets["GROQ_API_KEY"]
     if not api_key:
         raise RuntimeError("GROQ_API_KEY está vazia.")
@@ -390,120 +329,91 @@ def open_conversation(conversation_id):
     st.rerun()
 
 # ============================================================
-# SIDEBAR
+# SIDEBAR LATERAL (MINIMALISTA)
 # ============================================================
 
 with st.sidebar:
-    st.markdown('<div class="larymb-logo">LaryMB<span>✦</span></div>', unsafe_allow_html=True)
-    st.markdown('<div class="larymb-version">Intelligent AI · v3.0</div>', unsafe_allow_html=True)
-    st.markdown('<div class="status-online">● Online</div>', unsafe_allow_html=True)
-    st.write("")
-
-    if st.button("＋  Nova conversa", use_container_width=True):
+    st.markdown('<div class="larymb-logo">LaryMB <span>✦</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="larymb-version">v3.1</div>', unsafe_allow_html=True)
+    
+    if st.button("Nova conversa", use_container_width=True):
         new_conversation()
 
-    search = st.text_input("Pesquisar", placeholder="Pesquisar conversas...", label_visibility="collapsed")
-    st.caption("CONVERSAS")
+    st.write("")
+    st.caption("Histórico")
 
     conversations = get_conversations()
-    if search:
-        search_lower = search.lower()
-        conversations = [c for c in conversations if search_lower in c["title"].lower()]
-
     if conversations:
         for conversation in conversations[:12]:
             title = conversation["title"]
-            if len(title) > 28:
-                title = title[:28] + "..."
+            if len(title) > 26:
+                title = title[:26] + "..."
             is_current = conversation["id"] == st.session_state.conversation_id
-            prefix = "● " if is_current else "○ "
-            if st.button(prefix + title, key=f"conv_{conversation['id']}", use_container_width=True):
+            label = "· " + title if is_current else title
+            if st.button(label, key=f"conv_{conversation['id']}", use_container_width=True):
                 open_conversation(conversation["id"])
     else:
-        st.caption("Nenhuma conversa encontrada.")
+        st.caption("Nenhuma conversa ainda.")
 
     st.divider()
 
-    if st.button("🧠  Memória", use_container_width=True):
-        st.session_state.page = "memory"
-        st.rerun()
-
-    if st.button("⚙️  Configurações", use_container_width=True):
+    if st.button("Configurações", use_container_width=True):
         st.session_state.page = "settings"
         st.rerun()
 
-    st.write("")
-    st.caption("LaryMB AI")
-    st.caption("Sua inteligência artificial.")
-
 # ============================================================
-# ROTEAMENTO DE PÁGINAS (MEMORY / SETTINGS / HOME-CHAT)
+# ROTEAMENTO DE TELA
 # ============================================================
 
-if st.session_state.page == "memory":
-    st.title("🧠 Memória")
-    st.caption("A memória do LaryMB será usada para personalizar futuras conversas.")
-    st.info("A estrutura de memória já está preparada no banco SQLite.")
-    if st.button("← Voltar para o LaryMB"):
-        st.session_state.page = "home"
-        st.rerun()
-
-elif st.session_state.page == "settings":
-    st.title("⚙️ Configurações")
-    st.subheader("Modelo de IA")
-    st.text_input("Modelo atual", value=MODEL_NAME, disabled=True)
+if st.session_state.page == "settings":
+    st.title("Configurações")
+    st.caption("Gerenciamento do sistema e estatísticas de uso.")
     
-    st.subheader("Sistema")
-    col1, col2 = st.columns(2)
+    st.write("")
+    st.subheader("Uso Geral")
     stats = get_statistics()
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Conversas", stats["conversations"])
     with col2:
         st.metric("Mensagens", stats["messages"])
+    with col3:
+        st.metric("Tokens Totais", stats["tokens"])
         
     st.divider()
-    confirm = st.checkbox("Confirmo que desejo apagar todas as conversas.")
-    if st.button("🗑️ Apagar todas as conversas", disabled=not confirm):
+    
+    if st.button("Limpar todo o histórico"):
         delete_all_conversations()
         st.session_state.conversation_id = None
-        st.success("Conversas removidas.")
+        st.success("Histórico apagado com sucesso.")
         st.rerun()
         
-    if st.button("← Voltar para o LaryMB"):
+    st.write("")
+    if st.button("Voltar ao chat"):
         st.session_state.page = "home"
         st.rerun()
 
 else:
     conversation_id = st.session_state.conversation_id
 
-    # HOME SEM CONVERSA
+    # TELA INICIAL LIMPA (SEM CARDS OU ÍCONES POLUINDO)
     if conversation_id is None:
         st.markdown("""
-            <div class="home-container">
-                <div class="home-icon">✦</div>
-                <div class="home-title">Como posso <span>ajudar</span>?</div>
-                <div class="home-subtitle">Sua inteligência artificial para criar, aprender, analisar e resolver.</div>
+            <div class="welcome-container">
+                <div class="welcome-title">Como posso ajudar hoje?</div>
+                <div class="welcome-subtitle">Digite sua mensagem abaixo para iniciar a conversa com a LaryMB.</div>
             </div>
         """, unsafe_allow_html=True)
 
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown('<div class="mini-card"><div class="mini-card-title">💡 Criar e escrever</div><div class="mini-card-text">Ideias, textos, planejamento e documentação.</div></div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown('<div class="mini-card"><div class="mini-card-title">💻 Programar</div><div class="mini-card-text">Python, SQL, APIs, Streamlit e arquitetura.</div></div>', unsafe_allow_html=True)
-
-        st.write("")
-        col3, col4 = st.columns(2)
-        with col3:
-            st.markdown('<div class="mini-card"><div class="mini-card-title">🧠 Explorar IA</div><div class="mini-card-text">LLMs, RAG, agentes e automação.</div></div>', unsafe_allow_html=True)
-        with col4:
-            st.markdown('<div class="mini-card"><div class="mini-card-title">📊 Analisar</div><div class="mini-card-text">Dados, projetos, problemas e estratégias.</div></div>', unsafe_allow_html=True)
-
-        st.markdown('<div class="suggestion-title">Comece uma conversa para continuar</div>', unsafe_allow_html=True)
-        if st.button("＋ Começar uma nova conversa", type="primary", use_container_width=True):
-            new_conversation()
+        if prompt := st.chat_input("Escreva uma mensagem..."):
+            new_id = create_conversation(title=prompt[:30])
+            st.session_state.conversation_id = new_id
+            save_message(new_id, "user", prompt)
             
-        st.markdown('<div class="footer">LaryMB pode cometer erros. Verifique informações importantes.</div>', unsafe_allow_html=True)
+            with st.spinner("Pensando..."):
+                answer, in_tok, out_tok = generate_response(new_id)
+                save_message(new_id, "assistant", answer, in_tok, out_tok)
+            st.rerun()
 
     # CHAT ATIVO
     else:
@@ -512,38 +422,32 @@ else:
             st.session_state.conversation_id = None
             st.rerun()
 
-        st.subheader(conversation["title"])
-        
-        # Histórico de mensagens
+        # Renderiza histórico de mensagens de forma limpa
         messages = get_messages(conversation_id)
         for msg in messages:
-            avatar_icon = "👩‍💻" if msg["role"] == "assistant" else "👤"
-            with st.chat_message(msg["role"], avatar=avatar_icon):
+            with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
 
-        # Input de nova mensagem do chat
-        if prompt := st.chat_input("Digite sua mensagem para o LaryMB..."):
-            # Salva a mensagem do usuário
+        # Input de nova mensagem
+        if prompt := st.chat_input("Digite sua mensagem..."):
             save_message(conversation_id, "user", prompt)
-            with st.chat_message("user", avatar="👤"):
+            with st.chat_message("user"):
                 st.markdown(prompt)
 
-            # Gera a resposta via Groq de forma segura
-            with st.chat_message("assistant", avatar="👩‍💻"):
-                with st.spinner("LaryMB pensando..."):
+            with st.chat_message("assistant"):
+                with st.spinner("Pensando..."):
                     try:
                         answer, in_tok, out_tok = generate_response(conversation_id)
                         st.markdown(answer)
                         save_message(conversation_id, "assistant", answer, in_tok, out_tok)
                         
-                        # Atualiza o título da conversa com a primeira pergunta se ainda estiver padrão
+                        # Atualiza título se for a primeira mensagem real
                         if conversation["title"] == "Nova conversa":
-                            new_title = prompt[:30] + "..." if len(prompt) > 30 else prompt
+                            new_title = prompt[:28] + "..." if len(prompt) > 28 else prompt
                             conn = get_connection()
                             conn.execute("UPDATE conversations SET title = ? WHERE id = ?", (new_title, conversation_id))
                             conn.commit()
                             conn.close()
                             
                     except Exception as e:
-                        error_msg = f"Desculpe, ocorreu um erro ao processar sua solicitação: `{e}`"
-                        st.error(error_msg)
+                        st.error(f"Erro ao processar a resposta: `{e}`")
