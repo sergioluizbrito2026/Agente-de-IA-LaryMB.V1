@@ -13,7 +13,7 @@ from groq import Groq
 st.set_page_config(
     page_title="LaryMB AI",
     page_icon="✦",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="expanded",
 )
 
@@ -22,8 +22,9 @@ st.set_page_config(
 # ============================================================
 
 APP_NAME = "LaryMB"
-APP_VERSION = "3.1.0"
-MODEL_NAME = "llama-3.3-70b-versatile"
+APP_VERSION = "3.2.0"
+# Corrigido para um modelo padrão estável da Groq
+MODEL_NAME = "llama-3.1-70b-versatile"
 DB_PATH = Path("larymb.db")
 
 MAX_HISTORY_MESSAGES = 30
@@ -40,41 +41,42 @@ logging.basicConfig(
 logger = logging.getLogger("larymb")
 
 # ============================================================
-# ESTILO VISUAL (DESIGN MINIMALISTA E LIMPO)
+# ESTILO VISUAL MODERNO (DESIGN ELEGANTE E FLUIDO)
 # ============================================================
 
 st.markdown(
     """
     <style>
-    /* Tema geral escuro e sofisticado */
+    /* Fundo geral com tom escuro premium */
     .stApp {
-        background-color: #121212;
-        color: #e0e0e0;
+        background-color: #0e0f12;
+        color: #e2e8f0;
     }
     
     /* Centralização e largura do container principal */
     .main .block-container {
-        max-width: 850px;
+        max-width: 900px;
         padding-top: 2rem;
         padding-bottom: 6rem;
     }
 
-    /* Sidebar limpa */
+    /* Sidebar moderna e fluida */
     [data-testid="stSidebar"] {
-        background-color: #18181b;
-        border-right: 1px solid #27272a;
+        background-color: #14161b;
+        border-right: 1px solid #1e222b;
     }
     [data-testid="stSidebar"] .stButton > button {
         background: transparent;
         border: none;
-        color: #a1a1aa;
+        color: #94a3b8;
         text-align: left;
-        border-radius: 6px;
+        border-radius: 8px;
         font-size: 13px;
-        padding: 6px 10px;
+        padding: 8px 12px;
+        transition: all 0.2s ease;
     }
     [data-testid="stSidebar"] .stButton > button:hover {
-        background: #27272a;
+        background: #1e222b;
         color: #ffffff;
     }
 
@@ -82,7 +84,7 @@ st.markdown(
     .larymb-logo {
         font-size: 18px;
         font-weight: 600;
-        color: #f4f4f5;
+        color: #f8fafc;
         letter-spacing: -0.5px;
         padding-bottom: 2px;
     }
@@ -90,40 +92,48 @@ st.markdown(
         color: #a78bfa;
     }
     .larymb-version {
-        color: #71717a;
+        color: #64748b;
         font-size: 11px;
         margin-bottom: 20px;
     }
 
-    /* Tela inicial limpa (sem cards cheios de ícones) */
+    /* Tela inicial limpa e centralizada */
     .welcome-container {
         text-align: center;
-        margin-top: 18vh;
+        margin-top: 22vh;
         margin-bottom: 4vh;
     }
     .welcome-title {
-        font-size: 32px;
+        font-size: 34px;
         font-weight: 600;
-        color: #f4f4f5;
-        letter-spacing: -0.8px;
+        color: #f8fafc;
+        letter-spacing: -1px;
         margin-bottom: 8px;
     }
     .welcome-subtitle {
-        color: #a1a1aa;
+        color: #94a3b8;
         font-size: 14px;
     }
 
-    /* Caixa de input do chat */
-    [data-testid="stChatInput"] {
-        background-color: #18181b !important;
-        border: 1px solid #27272a !important;
-        border-radius: 12px !important;
-    }
-    [data-testid="stChatInput"] textarea {
-        color: #f4f4f5 !important;
+    /* Mensagens do chat limpas e elegantes */
+    [data-testid="stChatMessage"] {
+        background-color: transparent;
+        border: none;
+        padding: 1rem 0;
     }
 
-    /* Ocultar elementos padrão desnecessários do Streamlit */
+    /* Caixa de input moderna */
+    [data-testid="stChatInput"] {
+        background-color: #181b22 !important;
+        border: 1px solid #2a2f3d !important;
+        border-radius: 16px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    [data-testid="stChatInput"] textarea {
+        color: #f8fafc !important;
+    }
+
+    /* Ocultar elementos desnecessários do Streamlit */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
     </style>
@@ -163,17 +173,6 @@ def init_database():
                 output_tokens INTEGER DEFAULT 0,
                 total_tokens INTEGER DEFAULT 0,
                 created_at TEXT NOT NULL,
-                FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
-            )
-        """)
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS memories (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                conversation_id INTEGER NOT NULL,
-                memory_key TEXT NOT NULL,
-                memory_value TEXT NOT NULL,
-                created_at TEXT NOT NULL,
-                updated_at TEXT NOT NULL,
                 FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
             )
         """)
@@ -219,7 +218,6 @@ def delete_all_conversations():
     conn = get_connection()
     try:
         conn.execute("DELETE FROM messages")
-        conn.execute("DELETE FROM memories")
         conn.execute("DELETE FROM conversations")
         conn.commit()
     finally:
@@ -329,14 +327,14 @@ def open_conversation(conversation_id):
     st.rerun()
 
 # ============================================================
-# SIDEBAR LATERAL (MINIMALISTA)
+# SIDEBAR LATERAL
 # ============================================================
 
 with st.sidebar:
     st.markdown('<div class="larymb-logo">LaryMB <span>✦</span></div>', unsafe_allow_html=True)
-    st.markdown('<div class="larymb-version">v3.1</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="larymb-version">v{APP_VERSION}</div>', unsafe_allow_html=True)
     
-    if st.button("Nova conversa", use_container_width=True):
+    if st.button("＋ Nova conversa", use_container_width=True):
         new_conversation()
 
     st.write("")
@@ -349,7 +347,7 @@ with st.sidebar:
             if len(title) > 26:
                 title = title[:26] + "..."
             is_current = conversation["id"] == st.session_state.conversation_id
-            label = "· " + title if is_current else title
+            label = "● " + title if is_current else "○ " + title
             if st.button(label, key=f"conv_{conversation['id']}", use_container_width=True):
                 open_conversation(conversation["id"])
     else:
@@ -357,7 +355,7 @@ with st.sidebar:
 
     st.divider()
 
-    if st.button("Configurações", use_container_width=True):
+    if st.button("⚙️ Configurações", use_container_width=True):
         st.session_state.page = "settings"
         st.rerun()
 
@@ -382,21 +380,21 @@ if st.session_state.page == "settings":
         
     st.divider()
     
-    if st.button("Limpar todo o histórico"):
+    if st.button("🗑️ Limpar todo o histórico"):
         delete_all_conversations()
         st.session_state.conversation_id = None
         st.success("Histórico apagado com sucesso.")
         st.rerun()
         
     st.write("")
-    if st.button("Voltar ao chat"):
+    if st.button("← Voltar ao chat"):
         st.session_state.page = "home"
         st.rerun()
 
 else:
     conversation_id = st.session_state.conversation_id
 
-    # TELA INICIAL LIMPA (SEM CARDS OU ÍCONES POLUINDO)
+    # TELA INICIAL MODERNA
     if conversation_id is None:
         st.markdown("""
             <div class="welcome-container">
@@ -405,12 +403,12 @@ else:
             </div>
         """, unsafe_allow_html=True)
 
-        if prompt := st.chat_input("Escreva uma mensagem..."):
+        if prompt := st.chat_input("Digite sua mensagem..."):
             new_id = create_conversation(title=prompt[:30])
             st.session_state.conversation_id = new_id
             save_message(new_id, "user", prompt)
             
-            with st.spinner("Pensando..."):
+            with st.spinner("LaryMB pensando..."):
                 answer, in_tok, out_tok = generate_response(new_id)
                 save_message(new_id, "assistant", answer, in_tok, out_tok)
             st.rerun()
@@ -422,20 +420,21 @@ else:
             st.session_state.conversation_id = None
             st.rerun()
 
-        # Renderiza histórico de mensagens de forma limpa
+        # Renderiza histórico de mensagens
         messages = get_messages(conversation_id)
         for msg in messages:
-            with st.chat_message(msg["role"]):
+            avatar = "👩‍💻" if msg["role"] == "assistant" else "👤"
+            with st.chat_message(msg["role"], avatar=avatar):
                 st.markdown(msg["content"])
 
         # Input de nova mensagem
         if prompt := st.chat_input("Digite sua mensagem..."):
             save_message(conversation_id, "user", prompt)
-            with st.chat_message("user"):
+            with st.chat_message("user", avatar="👤"):
                 st.markdown(prompt)
 
-            with st.chat_message("assistant"):
-                with st.spinner("Pensando..."):
+            with st.chat_message("assistant", avatar="👩‍💻"):
+                with st.spinner("LaryMB pensando..."):
                     try:
                         answer, in_tok, out_tok = generate_response(conversation_id)
                         st.markdown(answer)
