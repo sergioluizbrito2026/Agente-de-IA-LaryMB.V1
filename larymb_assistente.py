@@ -647,27 +647,40 @@ with st.sidebar:
         st.rerun()
 
 # ============================================================
-# CABEÇALHO PRINCIPAL - LARGURA TOTAL REAL
+# CABEÇALHO FIXO NO TOPO (HEADER STICKY)
 # ============================================================
 st.markdown(
     """
     <style>
-        /* Expande o container principal para aproveitar melhor o espaço */
+        /* Fixa o container do topo para que ele acompanhe ou fique travado */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99999;
+            background-color: #0e1117;
+            padding: 10px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        
+        /* Adiciona um espaçamento no topo da página para o chat não ficar escondido debaixo do banner fixo */
         .block-container {
+            padding-top: 140px !important;
             max-width: 100% !important;
-            padding-top: 1rem !important;
             padding-left: 0rem !important;
             padding-right: 0rem !important;
         }
-        /* Faz a imagem esticar de ponta a ponta na tela */
-        .full-width-image img {
+        
+        .fixed-header img {
             width: 100% !important;
-            height: auto !important;
+            max-height: 120px;
+            object-fit: cover;
             display: block;
         }
     </style>
     
-    <div class="full-width-image">
+    <div class="fixed-header">
     """,
     unsafe_allow_html=True
 )
