@@ -9,152 +9,33 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# DESIGN — LARYMB AI (Fundo Tecnológico + Vidro Fosco)
-# ============================================================
 st.markdown(
     textwrap.dedent("""
     <style>
-    /* 1. Imagem de fundo imersiva em tela cheia */
+    /* Fundo degradê azul escuro elegante com brilho sutil no topo */
     .stApp {
-        background-image: linear-gradient(rgba(4, 8, 16, 0.75), rgba(4, 8, 16, 0.85)), 
-                          url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+        background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b132b 40%, #040810 100%);
         color: #F8FAFC;
     }
-
-    /* 2. Largura e centralização do container principal */
+    
     .block-container {
-        max-width: 1050px;
+        max-width: 900px;
         padding-top: 2.5rem;
         padding-bottom: 6rem;
         margin: 0 auto;
     }
-
-    /* 3. Estilização da Sidebar (Painel Lateral) com efeito vidro escuro */
+    
     [data-testid="stSidebar"] {
-        background: rgba(6, 10, 20, 0.88) !important;
-        backdrop-filter: blur(12px);
-        border-right: 1px solid rgba(56, 189, 248, 0.12);
+        background: rgba(6, 10, 20, 0.9) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.07);
     }
-    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span {
-        color: #94A3B8;
-        font-size: .88rem;
-        line-height: 1.55;
-    }
-
-    /* 4. Cabeçalho Customizado */
-    .custom-header {
-        position: relative;
-        padding: 10px 0px 20px 0px;
-        margin-bottom: 25px;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-    }
-    .brand-label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 8px;
-        color: #38bdf8;
-        font-size: .76rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
-    .brand-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #38bdf8;
-        box-shadow: 0 0 12px rgba(56,189,248,.85);
-    }
-    .custom-title {
-        margin: 0;
-        color: #FFFFFF;
-        font-size: 2.55rem;
-        line-height: 1.15;
-        font-weight: 800;
-        text-shadow: 0 2px 16px rgba(0,180,255,.35);
-    }
-    .custom-subtitle {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        color: #99d6ff;
-        font-size: 1.08rem;
-        font-weight: 600;
-    }
-    .custom-caption {
-        max-width: 750px;
-        color: #cbd5e1;
-        font-size: .9rem;
-        line-height: 1.6;
-    }
-
-    /* 5. Mensagens de Chat com fundo translúcido (Glassmorphism) */
-    [data-testid="stChatMessage"] {
-        background: rgba(11, 22, 43, 0.55) !important;
-        border: 1px solid rgba(56, 189, 248, 0.15) !important;
-        border-radius: 16px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        backdrop-filter: blur(8px);
-    }
-    [data-testid="stChatMessageContent"] {
-        color: #E2E8F0;
-        font-size: .97rem;
-        line-height: 1.7;
-    }
-
-    /* 6. Barra de Chat Flutuante Estilizada */
+    
+    /* Demais estilos do chat e do cabeçalho */
     [data-testid="stChatInput"] {
         background: rgba(11, 22, 43, 0.85) !important;
-        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+        border: 1px solid rgba(56, 189, 248, 0.25) !important;
         border-radius: 20px !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-        backdrop-filter: blur(12px);
-        padding: 4px;
-        transition: all 0.3s ease;
-    }
-    [data-testid="stChatInput"]:focus-within {
-        border-color: rgba(56, 189, 248, 0.8) !important;
-        box-shadow: 0 0 25px rgba(56, 189, 248, 0.3), 0 12px 35px rgba(0,0,0,.6) !important;
-    }
-    [data-testid="stChatInput"] textarea {
-        color: #F8FAFC !important;
-    }
-    [data-testid="stChatInput"] textarea::placeholder {
-        color: #64748B !important;
-    }
-
-    /* 7. Botões e Alertas */
-    .stButton>button {
-        border-radius: 10px;
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        background: rgba(17, 27, 46, 0.8);
-        color: #E2E8F0;
-        transition: all 0.2s ease;
-    }
-    .stButton>button:hover {
-        border-color: #38bdf8;
-        color: #FFF;
-        background: rgba(23, 33, 58, 0.9);
-        box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-    }
-    [data-testid="stAlert"] {
-        border-radius: 12px;
-        background: rgba(15, 23, 42, 0.75);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(56, 189, 248, 0.2);
-    }
-
-    /* Responsividade para telas menores */
-    @media(max-width: 700px) {
-        .custom-title { font-size: 2rem; }
-        .custom-subtitle { font-size: .98rem; }
-        .custom-caption { font-size: .84rem; }
     }
     </style>
     """),
