@@ -587,6 +587,7 @@ LaryMB V1 — Inteligência que transforma perguntas em soluções.
 """
 
 # Cria o conteúdo da barra lateral no Streamlit
+# Cria o conteúdo da barra lateral no Streamlit
 with st.sidebar:
     
     # Define o título da barra lateral
@@ -595,17 +596,23 @@ with st.sidebar:
     # Mostra um texto explicativo sobre o assistente
     st.markdown("Um Agente de IA focado para ajudar iniciantes.")
     
-    # Campo para inserir a chave de API da Groq
-    groq_api_key = st.text_input(
-        "Insira sua API Key Groq", 
-        type="password",
-        help="Obtenha sua chave em https://console.groq.com/keys"
-    )
+    # Tenta puxar a chave dos segredos do Streamlit Cloud de forma segura
+    groq_api_key = None
+    if "GROQ_API_KEY" in st.secrets:
+        groq_api_key = st.secrets["GROQ_API_KEY"]
+    
+    # Se não encontrar nos segredos (ou estiver rodando localmente sem configurar), mostra o campo para digitar
+    if not groq_api_key:
+        groq_api_key = st.sidebar.text_input(
+            "Insira sua API Key Groq", 
+            type="password",
+            help="Obtenha sua chave em https://console.groq.com/keys"
+        )
 
     # Adiciona linhas divisórias e explicações extras na barra lateral
     st.markdown("---")
     st.markdown("Desenvolvido para auxiliar em suas dúvidas. IA pode cometer erros. Sempre verifique as respostas.")
-           
+            
     # Botão de link para enviar e-mail ao suporte da DSA
     st.link_button("✉️ E-mail Para o Suporte no Caso de Dúvidas", "mailto:sergiolmendes2026@gmail.com")
 
