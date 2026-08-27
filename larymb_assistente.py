@@ -18,440 +18,430 @@ st.set_page_config(
 
 st.markdown(
     """
-    <style>
+<style>
 
-    /* ========================================================
-       FUNDO PRINCIPAL
-       ======================================================== */
+/* ============================================================
+   FUNDO PRINCIPAL
+   ============================================================ */
 
-    .stApp {
-        background:
-            radial-gradient(
-                circle at 50% -10%,
-                rgba(124, 140, 255, 0.12),
-                transparent 40%
-            ),
-            linear-gradient(
-                135deg,
-                #080D1A 0%,
-                #0A1020 50%,
-                #050914 100%
-            );
+.stApp {
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(124, 140, 255, 0.12),
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #080D1A 0%,
+            #0A1020 50%,
+            #050914 100%
+        );
 
-        color: #F8FAFC;
-    }
-
-    /* Remove espaços excessivos do topo */
-
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 6rem;
-        max-width: 900px;
-    }
+    color: #F8FAFC;
+}
 
 
-    /* ========================================================
-       SIDEBAR
-       ======================================================== */
+/* ============================================================
+   CONTAINER PRINCIPAL
+   ============================================================ */
 
-    [data-testid="stSidebar"] {
-        background: #0B1220;
-        border-right: 1px solid rgba(255,255,255,0.06);
-    }
-
-    [data-testid="stSidebar"] h1 {
-        color: #F8FAFC;
-        font-size: 1.15rem;
-        font-weight: 700;
-    }
-
-    [data-testid="stSidebar"] p {
-        color: #94A3B8;
-        font-size: 0.9rem;
-        line-height: 1.5;
-    }
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 6rem;
+    max-width: 900px;
+}
 
 
-    /* ========================================================
-       HEADER PRINCIPAL
-       ======================================================== */
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+[data-testid="stSidebar"] {
+    background: #0B1220;
+    border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+[data-testid="stSidebar"] h1 {
+    color: #F8FAFC;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+[data-testid="stSidebar"] p {
+    color: #94A3B8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.custom-header {
+    position: relative;
+
+    padding: 34px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 28, 50, 0.94),
+            rgba(10, 18, 34, 0.90)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+
+    backdrop-filter: blur(14px);
+
+    margin-bottom: 30px;
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   MARCA D'ÁGUA
+   ============================================================ */
+
+.custom-header::before {
+    content: "LARYMB";
+
+    position: absolute;
+
+    right: -20px;
+    top: -25px;
+
+    font-size: 120px;
+
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    color: rgba(124,140,255,0.035);
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   BRILHO
+   ============================================================ */
+
+.custom-header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 200px;
+    height: 200px;
+
+    right: -100px;
+    bottom: -120px;
+
+    background: rgba(124,140,255,0.08);
+
+    filter: blur(70px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   LABEL
+   ============================================================ */
+
+.brand-label {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+
+    color: #A78BFA;
+
+    margin-bottom: 8px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.brand-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #7C8CFF;
+
+    box-shadow:
+        0 0 12px rgba(124,140,255,0.8);
+}
+
+
+/* ============================================================
+   TÍTULO
+   ============================================================ */
+
+.custom-title {
+    font-size: 2.65rem;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #F8FAFC;
+
+    margin: 0;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* ============================================================
+   SUBTÍTULO
+   ============================================================ */
+
+.custom-subtitle {
+    font-size: 1.15rem;
+
+    font-weight: 500;
+
+    color: #A5B4FC;
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* ============================================================
+   DESCRIÇÃO
+   ============================================================ */
+
+.custom-caption {
+    font-size: 0.92rem;
+
+    line-height: 1.6;
+
+    color: #94A3B8;
+
+    max-width: 680px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* ============================================================
+   CHAT
+   ============================================================ */
+
+[data-testid="stChatMessage"] {
+    background: transparent;
+
+    border: none;
+
+    padding-top: 0.75rem;
+
+    padding-bottom: 0.75rem;
+}
+
+
+/* ============================================================
+   AVATAR DO USUÁRIO
+   ============================================================ */
+
+[data-testid="stChatMessageAvatarUser"] {
+    background: #7C8CFF !important;
+}
+
+
+/* ============================================================
+   AVATAR DA LARYMB
+   ============================================================ */
+
+[data-testid="stChatMessageAvatarAssistant"] {
+    background: #A78BFA !important;
+}
+
+
+/* ============================================================
+   TEXTO DO CHAT
+   ============================================================ */
+
+[data-testid="stChatMessageContent"] {
+    color: #E2E8F0;
+
+    font-size: 0.98rem;
+
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   INPUT
+   ============================================================ */
+
+[data-testid="stChatInput"] {
+    background: rgba(15, 23, 42, 0.96);
+
+    border: 1px solid #26344D;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.35);
+}
+
+
+[data-testid="stChatInput"] textarea {
+    color: #F8FAFC !important;
+
+    font-size: 0.98rem;
+}
+
+
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #64748B !important;
+}
+
+
+/* ============================================================
+   BOTÕES
+   ============================================================ */
+
+.stButton > button {
+    border-radius: 10px;
+
+    border: 1px solid #26344D;
+
+    background: #111B2E;
+
+    color: #E2E8F0;
+
+    transition: all 0.2s ease;
+}
+
+
+.stButton > button:hover {
+    border-color: #7C8CFF;
+
+    color: #FFFFFF;
+
+    background: #17213A;
+}
+
+
+/* ============================================================
+   DIVISOR
+   ============================================================ */
+
+hr {
+    border-color: rgba(255,255,255,0.07);
+}
+
+
+/* ============================================================
+   ALERTAS
+   ============================================================ */
+
+[data-testid="stAlert"] {
+    background: rgba(30,41,59,0.65);
+
+    border: 1px solid rgba(148,163,184,0.15);
+
+    color: #CBD5E1;
+
+    border-radius: 12px;
+}
+
+
+/* ============================================================
+   RODAPÉ
+   ============================================================ */
+
+.watermark-center {
+    text-align: center;
+
+    color: #64748B;
+
+    font-size: 0.78rem;
+
+    font-weight: 500;
+
+    letter-spacing: 0.5px;
+
+    margin: 35px 0 10px;
+
+    user-select: none;
+}
+
+
+.footer-brand {
+    color: #7C8CFF;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+
+@media (max-width: 700px) {
 
     .custom-header {
+        padding: 26px 22px;
 
-        position: relative;
-
-        padding: 34px 30px;
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(17, 28, 50, 0.92),
-                rgba(10, 18, 34, 0.88)
-            );
-
-        border: 1px solid rgba(255,255,255,0.08);
-
-        border-radius: 18px;
-
-        box-shadow:
-            0 20px 50px rgba(0,0,0,0.35),
-            inset 0 1px 0 rgba(255,255,255,0.03);
-
-        backdrop-filter: blur(14px);
-
-        margin-bottom: 28px;
-
-        overflow: hidden;
+        border-radius: 14px;
     }
-
-
-    /* Marca d'água */
-
-    .custom-header::before {
-
-        content: "LARYMB";
-
-        position: absolute;
-
-        right: -25px;
-        top: -28px;
-
-        font-size: 125px;
-
-        font-weight: 900;
-
-        letter-spacing: 8px;
-
-        color: rgba(124,140,255,0.035);
-
-        z-index: 0;
-
-        pointer-events: none;
-    }
-
-
-    /* Pequeno brilho */
-
-    .custom-header::after {
-
-        content: "";
-
-        position: absolute;
-
-        width: 180px;
-        height: 180px;
-
-        right: -80px;
-        bottom: -100px;
-
-        background: rgba(124,140,255,0.08);
-
-        filter: blur(60px);
-
-        border-radius: 50%;
-
-        pointer-events: none;
-    }
-
-
-    /* ========================================================
-       IDENTIDADE
-       ======================================================== */
-
-    .brand-label {
-
-        display: inline-flex;
-
-        align-items: center;
-
-        gap: 8px;
-
-        font-size: 0.78rem;
-
-        font-weight: 700;
-
-        letter-spacing: 1.2px;
-
-        text-transform: uppercase;
-
-        color: #A78BFA;
-
-        margin-bottom: 8px;
-
-        position: relative;
-
-        z-index: 2;
-    }
-
-
-    .brand-dot {
-
-        width: 7px;
-        height: 7px;
-
-        border-radius: 50%;
-
-        background: #7C8CFF;
-
-        box-shadow:
-            0 0 12px rgba(124,140,255,0.8);
-    }
-
-
-    /* ========================================================
-       TÍTULO
-       ======================================================== */
 
     .custom-title {
-
-        font-size: 2.65rem;
-
-        line-height: 1.15;
-
-        font-weight: 800;
-
-        letter-spacing: -1px;
-
-        color: #F8FAFC;
-
-        margin: 0;
-
-        position: relative;
-
-        z-index: 2;
+        font-size: 2rem;
     }
-
-
-    /* ========================================================
-       SUBTÍTULO
-       ======================================================== */
 
     .custom-subtitle {
-
-        font-size: 1.15rem;
-
-        font-weight: 500;
-
-        color: #A5B4FC;
-
-        margin-top: 10px;
-
-        margin-bottom: 10px;
-
-        position: relative;
-
-        z-index: 2;
+        font-size: 1rem;
     }
-
-
-    /* ========================================================
-       DESCRIÇÃO
-       ======================================================== */
 
     .custom-caption {
-
-        font-size: 0.92rem;
-
-        line-height: 1.6;
-
-        color: #94A3B8;
-
-        max-width: 650px;
-
-        position: relative;
-
-        z-index: 2;
+        font-size: 0.85rem;
     }
+}
 
-
-    /* ========================================================
-       CHAT
-       ======================================================== */
-
-    [data-testid="stChatMessage"] {
-
-        background: transparent;
-
-        border: none;
-
-        padding-top: 0.8rem;
-
-        padding-bottom: 0.8rem;
-    }
-
-
-    /* Avatar */
-
-    [data-testid="stChatMessageAvatarUser"] {
-
-        background: #7C8CFF !important;
-    }
-
-
-    [data-testid="stChatMessageAvatarAssistant"] {
-
-        background: #A78BFA !important;
-    }
-
-
-    /* Texto das mensagens */
-
-    [data-testid="stChatMessageContent"] {
-
-        color: #E2E8F0;
-
-        font-size: 0.98rem;
-
-        line-height: 1.7;
-    }
-
-
-    /* ========================================================
-       INPUT DO CHAT
-       ======================================================== */
-
-    [data-testid="stChatInput"] {
-
-        background: rgba(15, 23, 42, 0.95);
-
-        border: 1px solid #26344D;
-
-        border-radius: 16px;
-
-        box-shadow:
-            0 12px 35px rgba(0,0,0,0.35);
-    }
-
-
-    [data-testid="stChatInput"] textarea {
-
-        color: #F8FAFC !important;
-
-        font-size: 0.98rem;
-    }
-
-
-    [data-testid="stChatInput"] textarea::placeholder {
-
-        color: #64748B !important;
-    }
-
-
-    /* ========================================================
-       BOTÕES
-       ======================================================== */
-
-    .stButton > button {
-
-        border-radius: 10px;
-
-        border: 1px solid #26344D;
-
-        background: #111B2E;
-
-        color: #E2E8F0;
-
-        transition: all 0.2s ease;
-    }
-
-
-    .stButton > button:hover {
-
-        border-color: #7C8CFF;
-
-        color: #FFFFFF;
-
-        background: #17213A;
-    }
-
-
-    /* ========================================================
-       DIVISOR
-       ======================================================== */
-
-    hr {
-
-        border-color: rgba(255,255,255,0.07);
-    }
-
-
-    /* ========================================================
-       ALERTA
-       ======================================================== */
-
-    [data-testid="stAlert"] {
-
-        background: rgba(30,41,59,0.65);
-
-        border: 1px solid rgba(148,163,184,0.15);
-
-        color: #CBD5E1;
-
-        border-radius: 12px;
-    }
-
-
-    /* ========================================================
-       RODAPÉ
-       ======================================================== */
-
-    .watermark-center {
-
-        text-align: center;
-
-        color: #64748B;
-
-        font-size: 0.78rem;
-
-        font-weight: 500;
-
-        letter-spacing: 0.5px;
-
-        margin: 35px 0 10px;
-
-        user-select: none;
-    }
-
-
-    .footer-brand {
-
-        color: #7C8CFF;
-
-        font-weight: 700;
-    }
-
-
-    /* ========================================================
-       RESPONSIVO
-       ======================================================== */
-
-    @media (max-width: 700px) {
-
-        .custom-header {
-
-            padding: 26px 22px;
-
-            border-radius: 14px;
-        }
-
-        .custom-title {
-
-            font-size: 2rem;
-        }
-
-        .custom-subtitle {
-
-            font-size: 1rem;
-        }
-
-        .custom-caption {
-
-            font-size: 0.85rem;
-        }
-    }
-
-    </style>
-    """,
+</style>
+""",
     unsafe_allow_html=True
 )
 
@@ -463,19 +453,46 @@ st.markdown(
 CUSTOM_PROMPT = """
 Você é LaryMB V1, uma Inteligência Artificial generalista desenvolvida pela LaryMB AI.
 
-A LaryMB V1 deve responder perguntas gerais sobre assuntos cotidianos,
-conhecimentos gerais, educação, tecnologia, programação, idiomas, negócios,
-produtividade, criatividade, análise, estudos e outros temas dentro de sua
-capacidade.
+============================================================
+ESCOPO GERAL
+============================================================
 
-Ela não deve assumir que o usuário está necessariamente estudando,
+A LaryMB V1 deve responder perguntas gerais sobre:
+
+- Assuntos cotidianos;
+- Conhecimentos gerais;
+- Educação;
+- Estudos escolares;
+- Matemática;
+- Português;
+- Inglês;
+- História;
+- Geografia;
+- Ciências;
+- Biologia;
+- Física;
+- Química;
+- Filosofia;
+- Sociologia;
+- Tecnologia;
+- Programação;
+- Inteligência Artificial;
+- Ciência de Dados;
+- Negócios;
+- Produtividade;
+- Criatividade;
+- Análise de informações;
+- Desenvolvimento de ideias;
+- Outros temas dentro de sua capacidade.
+
+A LaryMB V1 não deve assumir que o usuário está necessariamente estudando,
 programando ou trabalhando com tecnologia.
 
 Primeiro identifique a intenção da pergunta e, em seguida, escolha a melhor
 forma de responder.
 
-A LaryMB V1 deve adaptar automaticamente sua linguagem, profundidade,
-estrutura e abordagem ao contexto e ao objetivo do usuário.
+Adapte automaticamente a linguagem, profundidade, estrutura e abordagem
+ao contexto e ao objetivo do usuário.
 
 ============================================================
 MISSÃO
@@ -483,37 +500,35 @@ MISSÃO
 
 Sua missão é ajudar o usuário a:
 
-- Responder perguntas gerais;
+- Responder perguntas;
 - Explicar conceitos;
 - Resolver problemas;
 - Ensinar conteúdos;
 - Auxiliar nos estudos;
 - Criar e revisar textos;
 - Traduzir idiomas;
-- Analisar documentos;
-- Trabalhar com programação;
+- Analisar informações;
+- Auxiliar em programação;
 - Auxiliar em tecnologia;
-- Analisar dados;
 - Desenvolver ideias;
 - Organizar informações;
 - Planejar projetos;
-- Apoiar decisões;
 - Aumentar produtividade.
 
 Seu objetivo é transformar perguntas, informações e problemas em respostas
 claras, úteis, práticas e confiáveis.
 
 ============================================================
-PRINCÍPIOS FUNDAMENTAIS
+PRINCÍPIOS
 ============================================================
 
-1. NÃO INVENTAR INFORMAÇÕES
+1. NÃO INVENTAR
 
 Nunca invente informações.
 
 Quando não souber algo, diga claramente que não possui informação suficiente.
 
-Nunca transforme hipótese em fato.
+Nunca transforme uma hipótese em fato.
 
 2. PRECISÃO
 
@@ -523,11 +538,11 @@ Quando houver incerteza, informe isso ao usuário.
 
 3. CLAREZA
 
-Responda de maneira clara e objetiva.
+Responda de forma clara e objetiva.
 
 Evite linguagem excessivamente técnica quando ela não for necessária.
 
-Quando o assunto for complexo, divida a explicação em etapas.
+Para assuntos complexos, divida a explicação em etapas.
 
 4. CONTEXTO
 
@@ -556,21 +571,28 @@ Não seja excessivamente robótica.
 
 Não seja excessivamente informal.
 
-Adapte o tom ao usuário e ao contexto.
+Adapte o tom ao usuário.
 
 ============================================================
 PERGUNTAS GERAIS
 ============================================================
 
-A LaryMB V1 pode responder perguntas sobre diferentes áreas.
-
-O usuário não precisa escolher uma categoria antes de perguntar.
-
-Identifique automaticamente o assunto e responda da maneira mais adequada.
-
-Para perguntas simples, seja direta.
+Para perguntas simples, responda diretamente.
 
 Para perguntas complexas, organize a resposta.
+
+Quando apropriado, utilize:
+
+- Títulos;
+- Listas;
+- Etapas;
+- Exemplos;
+- Tabelas;
+- Fórmulas;
+- Código;
+- Resumos.
+
+Não transforme perguntas simples em respostas desnecessariamente longas.
 
 ============================================================
 MODO EDUCACIONAL
@@ -578,40 +600,35 @@ MODO EDUCACIONAL
 
 A LaryMB V1 também atua como Assistente Educacional Inteligente.
 
-Pode auxiliar em:
+Pode auxiliar estudantes em todas as principais matérias escolares.
 
-- Matemática;
-- Português;
-- Literatura;
-- Redação;
-- Inglês;
-- Espanhol;
-- História;
-- Geografia;
-- Ciências;
-- Biologia;
-- Física;
-- Química;
-- Filosofia;
-- Sociologia;
-- Informática;
-- Estatística;
-- Programação;
-- Inteligência Artificial;
-- Ciência de Dados;
-- Outras áreas acadêmicas.
+Quando o usuário estiver estudando, priorize a compreensão.
 
-Quando o usuário estiver estudando, priorize compreensão.
-
-Sempre que apropriado:
+Sempre que apropriado utilize:
 
 Explicação → Exemplo → Resolução → Resultado
 
+Não forneça apenas a resposta quando uma explicação ajudar o usuário
+a aprender.
+
 ============================================================
-INGLÊS E IDIOMAS
+MATEMÁTICA
 ============================================================
 
-A LaryMB V1 pode atuar como tutora de idiomas.
+Para exercícios matemáticos:
+
+1. Identifique os dados;
+2. Apresente a fórmula ou método;
+3. Substitua os valores;
+4. Resolva passo a passo;
+5. Apresente o resultado;
+6. Verifique o resultado quando possível.
+
+============================================================
+INGLÊS
+============================================================
+
+A LaryMB V1 também pode atuar como tutora de Inglês.
 
 Auxilie em:
 
@@ -630,24 +647,47 @@ Auxilie em:
 
 Quando útil, apresente:
 
-Frase original;
-Tradução;
-Pronúncia aproximada;
-Explicação;
-Exemplo.
+Frase original
+Tradução
+Pronúncia aproximada
+Explicação
+Exemplo
 
 ============================================================
-MATEMÁTICA
+PORTUGUÊS E REDAÇÃO
 ============================================================
 
-Para exercícios matemáticos:
+Auxilie em:
 
-1. Identifique os dados;
-2. Apresente a fórmula ou método;
-3. Substitua os valores;
-4. Resolva passo a passo;
-5. Apresente o resultado;
-6. Verifique o resultado quando possível.
+- Gramática;
+- Ortografia;
+- Pontuação;
+- Interpretação;
+- Redação;
+- Coesão;
+- Coerência;
+- Literatura.
+
+Ao corrigir textos, explique as principais correções.
+
+============================================================
+HISTÓRIA E GEOGRAFIA
+============================================================
+
+Explique conceitos, acontecimentos e processos apresentando contexto,
+causas e consequências quando necessário.
+
+Diferencie fatos de interpretações.
+
+============================================================
+CIÊNCIAS
+============================================================
+
+Explique conceitos científicos de maneira progressiva:
+
+Conceito → Explicação simples → Exemplo → Aplicação
+
+Use analogias quando ajudarem na compreensão.
 
 ============================================================
 PROGRAMAÇÃO E TECNOLOGIA
@@ -691,26 +731,13 @@ presentes nesses documentos.
 Não invente conteúdo que não esteja disponível.
 
 ============================================================
-ANÁLISE DE PROBLEMAS
-============================================================
-
-Para problemas complexos:
-
-1. Entender;
-2. Analisar;
-3. Planejar;
-4. Resolver;
-5. Validar;
-6. Melhorar.
-
-============================================================
 TRANSPARÊNCIA
 ============================================================
 
 Nunca afirme ter realizado uma ação que não realizou.
 
-Nunca diga que consultou uma fonte, executou um código, enviou um e-mail,
-salvou um arquivo ou alterou um sistema se isso não tiver realmente acontecido.
+Nunca diga que consultou uma fonte, executou código, enviou e-mail,
+salvou arquivo ou alterou um sistema se isso não tiver realmente acontecido.
 
 ============================================================
 SEGURANÇA
@@ -718,9 +745,13 @@ SEGURANÇA
 
 Proteja informações confidenciais.
 
-Nunca solicite informações sensíveis sem necessidade.
+Nunca exponha:
 
-Nunca exponha senhas, tokens, chaves de API ou credenciais.
+- Senhas;
+- Tokens;
+- Chaves de API;
+- Credenciais;
+- Dados privados.
 
 ============================================================
 OBJETIVO FINAL
@@ -757,38 +788,38 @@ with st.sidebar:
 
     st.markdown(
         """
-        <div style="
-            font-size: 1.15rem;
-            font-weight: 750;
-            color: #F8FAFC;
-            margin-bottom: 8px;
-        ">
-            ✦ LaryMB AI
-        </div>
+<div style="
+    font-size: 1.15rem;
+    font-weight: 750;
+    color: #F8FAFC;
+    margin-bottom: 6px;
+">
+    ✦ LaryMB AI
+</div>
 
-        <div style="
-            font-size: 0.82rem;
-            color: #64748B;
-            margin-bottom: 20px;
-        ">
-            Inteligência artificial • V1
-        </div>
-        """,
+<div style="
+    font-size: 0.82rem;
+    color: #64748B;
+    margin-bottom: 20px;
+">
+    Inteligência Artificial • V1
+</div>
+""",
         unsafe_allow_html=True
     )
 
     st.markdown(
         """
-        <div style="
-            color: #94A3B8;
-            font-size: 0.88rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        ">
-            Uma IA para responder perguntas, aprender, criar, analisar
-            informações e ajudar você a resolver problemas.
-        </div>
-        """,
+<div style="
+    color: #94A3B8;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+">
+    Uma IA para responder perguntas, aprender, criar, analisar informações
+    e ajudar você a resolver problemas.
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -800,7 +831,6 @@ with st.sidebar:
     groq_api_key = None
 
     if "GROQ_API_KEY" in st.secrets:
-
         groq_api_key = st.secrets["GROQ_API_KEY"]
 
     if not groq_api_key:
@@ -833,15 +863,15 @@ with st.sidebar:
 
         st.markdown(
             """
-            <div style="
-                color: #94A3B8;
-                font-size: 0.88rem;
-                line-height: 1.5;
-                margin-bottom: 12px;
-            ">
-                Encontrou um problema ou precisa de ajuda?
-            </div>
-            """,
+<div style="
+    color: #94A3B8;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+">
+    Encontrou um problema ou precisa de ajuda?
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -856,74 +886,72 @@ with st.sidebar:
 
         st.markdown(
             f"""
-            <a
-                href="{whatsapp_url}"
-                target="_blank"
-                style="
-                    display: block;
-                    width: 100%;
-                    box-sizing: border-box;
-                    text-align: center;
-                    text-decoration: none;
-                    background: #111B2E;
-                    color: #E2E8F0;
-                    border: 1px solid #26344D;
-                    padding: 11px;
-                    border-radius: 10px;
-                    font-weight: 600;
-                    transition: 0.2s;
-                "
-            >
-                Falar no WhatsApp
-            </a>
-            """,
+<a
+    href="{whatsapp_url}"
+    target="_blank"
+    style="
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        text-decoration: none;
+        background: #111B2E;
+        color: #E2E8F0;
+        border: 1px solid #26344D;
+        padding: 11px;
+        border-radius: 10px;
+        font-weight: 600;
+    "
+>
+    Falar no WhatsApp
+</a>
+""",
             unsafe_allow_html=True
         )
 
 
 # ============================================================
-# HEADER
+# HEADER PRINCIPAL
 # ============================================================
 
 st.markdown(
     """
-    <div class="custom-header">
+<div class="custom-header">
 
-        <div class="brand-label">
-            <span class="brand-dot"></span>
-            LaryMB AI
-        </div>
-
-        <div class="custom-title">
-            LaryMB V1
-        </div>
-
-        <div class="custom-subtitle">
-            Sua inteligência artificial para aprender, criar, analisar e resolver.
-        </div>
-
-        <div class="custom-caption">
-            Faça perguntas, explore ideias, estude, programe, analise informações
-            e obtenha respostas claras e contextualizadas.
-        </div>
-
+    <div class="brand-label">
+        <span class="brand-dot"></span>
+        LaryMB AI
     </div>
-    """,
+
+    <div class="custom-title">
+        LaryMB V1
+    </div>
+
+    <div class="custom-subtitle">
+        Sua inteligência artificial para aprender, criar, analisar e resolver.
+    </div>
+
+    <div class="custom-caption">
+        Faça perguntas, explore ideias, estude, programe, analise informações
+        e obtenha respostas claras e contextualizadas.
+    </div>
+
+</div>
+""",
     unsafe_allow_html=True
 )
 
 
 # ============================================================
-# HISTÓRICO
+# HISTÓRICO DE MENSAGENS
 # ============================================================
 
 if "messages" not in st.session_state:
-
     st.session_state.messages = []
 
 
 # ============================================================
-# EXIBE MENSAGENS ANTERIORES
+# EXIBIR MENSAGENS
 # ============================================================
 
 for message in st.session_state.messages:
@@ -955,12 +983,6 @@ if groq_api_key:
 
         st.stop()
 
-elif st.session_state.messages:
-
-    st.warning(
-        "Configure sua API Key da Groq para continuar."
-    )
-
 
 # ============================================================
 # CHAT
@@ -978,7 +1000,7 @@ if prompt := st.chat_input("Pergunte qualquer coisa..."):
 
 
     # ========================================================
-    # USUÁRIO
+    # MENSAGEM DO USUÁRIO
     # ========================================================
 
     st.session_state.messages.append(
@@ -995,7 +1017,7 @@ if prompt := st.chat_input("Pergunte qualquer coisa..."):
 
 
     # ========================================================
-    # MENSAGENS PARA API
+    # PREPARAÇÃO DAS MENSAGENS
     # ========================================================
 
     messages_for_api = [
@@ -1012,7 +1034,7 @@ if prompt := st.chat_input("Pergunte qualquer coisa..."):
 
 
     # ========================================================
-    # RESPOSTA DA IA
+    # RESPOSTA DA LARYMB
     # ========================================================
 
     with st.chat_message("assistant"):
@@ -1071,13 +1093,19 @@ if prompt := st.chat_input("Pergunte qualquer coisa..."):
 
 st.markdown(
     """
-    <div class="watermark-center">
-        <span class="footer-brand">✦ LaryMB AI</span>
-        &nbsp;•&nbsp;
-        V1
-        &nbsp;•&nbsp;
-        Inteligência que transforma perguntas em soluções.
-    </div>
-    """,
+<div class="watermark-center">
+
+    <span class="footer-brand">✦ LaryMB AI</span>
+
+    &nbsp;•&nbsp;
+
+    V1
+
+    &nbsp;•&nbsp;
+
+    Inteligência que transforma perguntas em soluções.
+
+</div>
+""",
     unsafe_allow_html=True
 )
