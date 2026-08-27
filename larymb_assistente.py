@@ -14,9 +14,9 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* Fundo geral da aplicação com degradê brilhante de azul petróleo elegante */
+    /* Fundo geral da aplicação com o tom azul elegante e profundo */
     .stApp {
-        background: radial-gradient(circle at 50% 20%, #015c6b 0%, #003642 55%, #001e26 100%);
+        background: linear-gradient(135deg, #0b132b 0%, #081121 50%, #040810 100%);
         color: #ffffff;
     }
 
@@ -24,16 +24,15 @@ st.markdown(
     .custom-header {
         position: relative;
         padding: 30px 20px;
-        background: rgba(0, 45, 56, 0.45);
-        border: 1px solid rgba(0, 209, 255, 0.18);
+        background: rgba(11, 22, 43, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(8px);
         margin-bottom: 25px;
         overflow: hidden;
     }
 
-    /* Marca d'água grande e sutil no fundo do cabeçalho */
     .custom-header::before {
         content: "LARYMB";
         position: absolute;
@@ -41,18 +40,17 @@ st.markdown(
         top: -20px;
         font-size: 130px;
         font-weight: 900;
-        color: rgba(255, 255, 255, 0.03);
+        color: rgba(255, 255, 255, 0.025);
         z-index: 0;
         pointer-events: none;
         letter-spacing: 8px;
     }
 
-    /* Títulos com brilho e elegância */
     .custom-title {
         font-size: 2.5rem;
         font-weight: 800;
         color: #ffffff;
-        text-shadow: 0 2px 12px rgba(0, 225, 255, 0.35);
+        text-shadow: 0 2px 12px rgba(0, 180, 255, 0.25);
         margin-bottom: 0px;
         position: relative;
         z-index: 1;
@@ -61,7 +59,7 @@ st.markdown(
     .custom-subtitle {
         font-size: 1.3rem;
         font-weight: 500;
-        color: #99e6ff;
+        color: #99d6ff;
         margin-top: 5px;
         margin-bottom: 10px;
         position: relative;
@@ -70,20 +68,21 @@ st.markdown(
 
     .custom-caption {
         font-size: 0.9rem;
-        color: #b3d1db;
+        color: #8fb3d9;
         position: relative;
         z-index: 1;
     }
 
-    /* Marca d'água centralizada e discreta na tela */
+    /* Rodapé elegante e legível para combinar com o novo fundo */
     .watermark-center {
         text-align: center;
-        color: rgba(255, 255, 255, 0.22);
-        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 0.85rem;
         font-weight: 500;
-        letter-spacing: 1.2px;
-        margin: 30px 0;
+        letter-spacing: 1px;
+        margin: 35px 0;
         user-select: none;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     }
     </style>
     """,
