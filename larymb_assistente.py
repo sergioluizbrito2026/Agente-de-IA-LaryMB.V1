@@ -24,28 +24,11 @@ st.markdown(
     
     .custom-header{
         position: relative;
-        padding: 20px 0px 25px 0px;
+        padding: 15px 0px 20px 0px;
         margin-bottom: 20px;
         background: transparent;
         border: none;
         box-shadow: none;
-    }
-    
-    /* Marca d'água perfeitamente centralizada e visível no topo */
-    .custom-header::before {
-        content: "LARYMB";
-        position: absolute;
-        left: 50%;
-        top: -10px;
-        transform: translateX(-50%);
-        font-size: 120px;
-        line-height: 1;
-        font-weight: 900;
-        letter-spacing: 10px;
-        color: rgba(255, 255, 255, 0.025);
-        pointer-events: none;
-        z-index: 0;
-        white-space: nowrap;
     }
     
     .brand-label{
