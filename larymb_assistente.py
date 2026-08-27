@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ESTILOS CSS COMPLETOS
+# ESTILOS CSS
 st.markdown(
     textwrap.dedent("""
     <style>
@@ -34,7 +34,7 @@ st.markdown(
         border-right: 1px solid rgba(255, 255, 255, 0.07);
     }
     
-    /* Cabeçalho Customizado Formatado */
+    /* Cabeçalho Customizado */
     .custom-header {
         position: relative;
         padding: 10px 0px 20px 0px;
@@ -94,39 +94,6 @@ st.markdown(
     """),
     unsafe_allow_html=True,
 )
-
-# BARRA LATERAL
-with st.sidebar:
-    st.markdown("### ⚡ LaryMB AI")
-    st.caption("Inteligência Artificial • V1")
-    st.write("Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.")
-    st.markdown("---")
-    st.warning("⚠️ **A LaryMB pode cometer erros.** Verifique informações importantes antes de tomar decisões.")
-    
-    with st.expander("📌 Suporte / Fale conosco"):
-        st.write("Encontrou um problema ou precisa de ajuda?")
-        st.markdown("**E-mail:** [contato@larymb.com](mailto:contato@larymb.com)")
-        if st.button("Falar no WhatsApp"):
-            st.toast("Redirecionando para o WhatsApp...")
-
-    st.markdown("---")
-    if st.button("🗑️ Limpar conversa"):
-        st.toast("Histórico limpo com sucesso!")
-
-# CABEÇALHO PRINCIPAL CORRIGIDO E FORMATADO
-st.markdown("""
-    <div class="custom-header">
-        <div class="brand-label"><div class="brand-dot"></div> LaryMB AI</div>
-        <h1 class="custom-title">LaryMB V1</h1>
-        <div class="custom-subtitle">Sua inteligência artificial para aprender, criar, analisar e resolver.</div>
-        <div class="custom-caption">
-            Faça perguntas, explore ideias, estude, programe, analise informações e obtenha respostas claras e contextualizadas.
-        </div>
-    </div>
-""", unsafe_allow_html=True)
-
-# ENTRADA DE CHAT
-st.chat_input("Pergunte qualquer coisa...")
 # ============================================================
 # PROMPT MESTRE — LARYMB V1
 # ============================================================
@@ -617,20 +584,35 @@ Sua função é compreender a necessidade do usuário e fornecer a melhor respos
 LaryMB V1 — Inteligência que transforma perguntas em soluções.
 """
 
-# ============================================================
-# SIDEBAR
-# ============================================================
+# BARRA LATERAL (Sidebar)
 with st.sidebar:
-    st.markdown(
-        textwrap.dedent("""
-        <div style="font-size:1.15rem;font-weight:750;color:#F8FAFC;">✦ LaryMB AI</div>
-        <div style="font-size:.82rem;color:#64748B;margin-top:5px;">Inteligência Artificial • V1</div>
-        <div style="color:#94A3B8;font-size:.88rem;line-height:1.55;margin-top:20px;">
-        Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.
+    st.markdown("### ⚡ LaryMB AI")
+    st.caption("Inteligência Artificial • V1")
+    st.write("Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.")
+    st.markdown("---")
+    st.warning("⚠️ **A LaryMB pode cometer erros.** Verifique informações importantes antes de tomar decisões.")
+    
+    with st.expander("📌 Suporte / Fale conosco"):
+        st.write("Encontrou um problema ou precisa de ajuda?")
+        st.markdown("**E-mail:** [contato@larymb.com](mailto:contato@larymb.com)")
+        if st.button("Falar no WhatsApp"):
+            st.toast("Redirecionando para o WhatsApp...")
+
+    st.markdown("---")
+    if st.button("🗑️ Limpar conversa"):
+        st.toast("Histórico limpo com sucesso!")
+
+# CABEÇALHO PRINCIPAL ÚNICO
+st.markdown("""
+    <div class="custom-header">
+        <div class="brand-label"><div class="brand-dot"></div> LaryMB AI</div>
+        <h1 class="custom-title">LaryMB V1</h1>
+        <div class="custom-subtitle">Sua inteligência artificial para aprender, criar, analisar e resolver.</div>
+        <div class="custom-caption">
+            Faça perguntas, explore ideias, estude, programe, analise informações e obtenha respostas claras e contextualizadas.
         </div>
-        """),
-        unsafe_allow_html=True,
-    )
+    </div>
+""", unsafe_allow_html=True)
     st.markdown("---")
 
     groq_api_key = st.secrets.get("GROQ_API_KEY", "")
