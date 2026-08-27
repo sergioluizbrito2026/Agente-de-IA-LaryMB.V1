@@ -611,8 +611,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÃO DO LOGOTIPO FIXO E ESTILOS GLOBAIS
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGOTIPO COMPACTO)
 # ============================================================
 st.markdown(
     """
@@ -620,7 +622,7 @@ st.markdown(
         /* Oculta o cabeçalho nativo do Streamlit */
         header {visibility: hidden;}
 
-        /* Cria a barra superior fixa para o logotipo */
+        /* Cria a barra superior fixa compacta para o logotipo */
         .top-logo-bar {
             position: fixed;
             top: 0;
@@ -631,14 +633,20 @@ st.markdown(
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 8px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            padding: 5px 0;
+            box-shadow: {0 4px 15px rgba(0, 0, 0, 0.7)};
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Empurra o conteúdo do chat para baixo para não ficar sob a barra fixa */
+        /* Controla o tamanho compacto do logotipo na barra fixa do topo */
+        .top-logo-bar img {
+            max-height: 45px !important;
+            width: auto !important;
+        }
+
+        /* Ajusta o espaço no topo da página de forma compacta */
         .main .block-container {
-            padding-top: 115px !important;
+            padding-top: 75px !important;
         }
 
         /* Estilização limpa para os avatares das mensagens */
@@ -665,6 +673,15 @@ st.markdown(
             background: rgba(212, 175, 55, 0.08);
             color: #ffffff;
         }
+
+        /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
+        div.stChatMessage[data-testid="stChatMessage-assistant"] {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
     </style>
     
     <div class="top-logo-bar">
@@ -674,15 +691,15 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo centralizado no topo fixo
-col_l1, col_l2, col_l3 = st.columns([1, 2, 1])
+# 1. Logotipo centralizado no topo com tamanho reduzido e elegante
+col_l1, col_l2, col_l3 = st.columns([2, 1, 2])
 with col_l2:
-    st.image("agente de ia lm.png", use_container_width=True)
+    st.image("agente de ia lm.png", width=140)
 
 # 2. Subtítulo / Frase descritiva
 st.markdown(
     """
-    <div style="text-align: center; margin-bottom: 20px; color: #94a3b8; font-size: 0.95rem;">
+    <div style="text-align: center; margin-bottom: 15px; color: #94a3b8; font-size: 0.9rem;">
         Sua inteligência artificial para aprender, criar, analisar e resolver.
     </div>
     """,
@@ -705,14 +722,13 @@ with col4:
 # 4. Saudação de boas-vindas
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
-        <h3 style="color: #ffffff; margin-bottom: 5px; font-weight: 700;">Olá 👋</h3>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
+    <div style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
+        <h4 style="color: #ffffff; margin-bottom: 2px; font-weight: 600;">Olá 👋</h4>
+        <p style="color: #94a3b8; font-size: 0.85rem;">Como posso ajudar você hoje?</p>
     </div>
     """,
     unsafe_allow_html=True
 )
-
 
 
 # ============================================================
