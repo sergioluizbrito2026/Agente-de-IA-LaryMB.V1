@@ -615,16 +615,20 @@ with st.sidebar:
 
     # Menu expansível (Sanfona) para o Suporte / Fale conosco
     # Menu expansível (Sanfona) para o Suporte / Fale conosco
+    # Menu expansível (Sanfona) para o Suporte / Fale conosco
     with st.expander("SOS - Suporte / Fale conosco"):
         st.markdown("Se tiver dúvidas envie mensagem para\n**sergiolmendes2026@gmail.com**")
         
-        # URL e botão do WhatsApp sem sublinhado indesejado
+        # URL e botão do WhatsApp com o ícone oficial em SVG
         whatsapp_url = "https://wa.me/55994376755?text=Olá,%20vim%20pelo%20Agente%20IA%20LaryMB!"
         st.markdown(
             f'''
-            <a href="{whatsapp_url}" target="_blank" style="text-decoration: none !important;">
-                <button style="width:100%; background-color:#25D366; color:white; border:none; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
-                    💬 Falar no WhatsApp
+            <a href="{whatsapp_url}" target="_blank" style="text-decoration: none; color: inherit;">
+                <button style="width: 100%; background-color: #25D366; color: white; border: none; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.068 7.932c0 1.397.362 2.764 1.059 3.965L0 16l4.202-1.103a7.85 7.85 0 0 0 3.792.967h.004c4.365 0 7.926-3.558 7.926-7.93 0-2.11-.822-4.094-2.323-5.604zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.53 6.53 0 0 1 4.639 1.933 6.52 6.52 0 0 1 1.925 4.637c-.001 3.633-2.958 6.59-6.591 6.59zm3.633-4.97c-.199-.1-1.177-.581-1.359-.648-.182-.066-.314-.1-.448.1-.134.2-.517.648-.634.782-.117.133-.235.15-.434.05-.199-.1-.841-.31-1.603-.99-.592-.528-.992-1.181-1.109-1.38-.117-.199-.012-.307.087-.406.09-.089.199-.232.298-.348.1-.116.133-.199.199-.332.066-.133.033-.248-.017-.348-.05-.1-.448-1.078-.614-1.478-.161-.391-.325-.338-.448-.344l-.382-.007c-.133 0-.348.05-.53.248-.183.199-.701.685-.701 1.67 0 .985.718 1.937.818 2.07.1.133 1.41 2.155 3.417 3.022.477.206.849.33 1.139.423.479.153.915.131 1.259.08.384-.057 1.177-.481 1.343-.946.166-.465.166-.864.116-.946-.05-.084-.183-.133-.382-.232z"/>
+                    </svg>
+                    Falar no WhatsApp
                 </button>
             </a>
             ''',
