@@ -23,78 +23,103 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* ===== Fundo geral ===== */
-    body {
-      background-color: #f4f4f4; /* cinza claro neutro */
-      color: #333333; /* texto escuro */
-      font-family: 'Inter', 'Roboto', sans-serif;
+    /* Fundo geral da aplicação com degradê brilhante de azul petróleo elegante */
+    .stApp {
+        background: radial-gradient(circle at 50% 20%, #015c6b 0%, #003642 55%, #001e26 100%);
+        color: #ffffff;
     }
 
-    /* ===== Sidebar ===== */
-    .sidebar {
-      background-color: #ffffff;
-      border-right: 1px solid #dddddd;
-      padding: 20px;
-      color: #555555;
-      font-size: 13px;
+    /* Container do Cabeçalho com Efeito de Marca d'Água Tipográfica ao Fundo */
+    .custom-header {
+        position: relative;
+        padding: 30px 20px;
+        background: rgba(0, 45, 56, 0.45);
+        border: 1px solid rgba(0, 209, 255, 0.18);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        backdrop-filter: blur(8px);
+        margin-bottom: 25px;
+        overflow: hidden;
     }
 
-    .sidebar h1 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #00bcd4; /* azul turquesa moderno */
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    /* Marca d'água grande e sutil no fundo do cabeçalho */
+    .custom-header::before {
+        content: "LARYMB";
+        position: absolute;
+        right: -10px;
+        top: -20px;
+        font-size: 130px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.03);
+        z-index: 0;
+        pointer-events: none;
+        letter-spacing: 8px;
     }
 
-    /* ===== Área principal ===== */
-    h1 {
-      font-size: 13px;
-      font-weight: 600;
-      color: #00bcd4; /* azul turquesa */
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    /* Títulos com brilho e elegância */
+    .custom-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0, 225, 255, 0.35);
+        margin-bottom: 0px;
+        position: relative;
+        z-index: 1;
     }
 
-    h2 {
-      font-size: 11px;
-      font-weight: 500;
-      color: #ff4081; /* rosa vibrante */
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    .custom-subtitle {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #99e6ff;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
     }
 
-    p {
-      font-size: 10px;
-      line-height: 1.4;
-      color: #666666;
+    .custom-caption {
+        font-size: 0.9rem;
+        color: #b3d1db;
+        position: relative;
+        z-index: 1;
     }
 
-    /* ===== Input de chat ===== */
-    .chat-input {
-      width: 100%;
-      padding: 8px;
-      font-size: 11px;
-      border-radius: 6px;
-      border: 1px solid #cccccc;
-      background-color: #ffffff;
-      color: #333333;
-    }
-
-    /* ===== Botões ===== */
-    button {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 6px;
-      background: #00bcd4; /* azul turquesa */
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-      background: #0097a7; /* azul mais escuro no hover */
+    /* Marca d'água centralizada e discreta na tela */
+    .watermark-center {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.22);
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 1.2px;
+        margin: 30px 0;
+        user-select: none;
     }
     </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# ==========================================
+# CABEÇALHO VISUAL COM O NOVO DESIGN
+# ==========================================
+st.markdown(
+    """
+    <div class="custom-header">
+        <div class="custom-title">Agente de IA LaryMB v1</div>
+        <div class="custom-subtitle">Seu guia inteligente para iniciantes</div>
+        <div class="custom-caption">Faça sua pergunta e obtenha respostas, explicações e referências.</div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+E mais abaixo, onde você exibe o rodapé com a frase "Agente de IA LaryMB v1 - Acessível...", substitua por:
+
+Python
+st.markdown(
+    """
+    <div class="watermark-center">
+        Agente de IA LaryMB v1 — Acessível, confiável e útil para quem está começando.
+    </div>
     """,
     unsafe_allow_html=True
 )
