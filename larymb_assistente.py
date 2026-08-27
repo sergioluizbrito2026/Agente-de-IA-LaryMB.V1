@@ -587,7 +587,6 @@ LaryMB V1 — Inteligência que transforma perguntas em soluções.
 """
 
 # Cria o conteúdo da barra lateral no Streamlit
-# Cria o conteúdo da barra lateral no Streamlit
 with st.sidebar:
     
     # Define o título da barra lateral
@@ -601,7 +600,7 @@ with st.sidebar:
     if "GROQ_API_KEY" in st.secrets:
         groq_api_key = st.secrets["GROQ_API_KEY"]
     
-    # Se não encontrar nos segredos (ou estiver rodando localmente sem configurar), mostra o campo para digitar
+    # Se não encontrar nos segredos, mostra o campo para digitar
     if not groq_api_key:
         groq_api_key = st.sidebar.text_input(
             "Insira sua API Key Groq", 
@@ -609,12 +608,27 @@ with st.sidebar:
             help="Obtenha sua chave em https://console.groq.com/keys"
         )
 
-    # Adiciona linhas divisórias e explicações extras na barra lateral
     st.markdown("---")
-    st.markdown("Desenvolvido para auxiliar em suas dúvidas. IA pode cometer erros. Sempre verifique as respostas.")
-            
-    # Botão de link para enviar e-mail ao suporte da DSA
-    st.link_button("✉️ E-mail Para o Suporte no Caso de Dúvidas", "mailto:sergiolmendes2026@gmail.com")
+    
+    # Caixa de aviso destacada (estilo da imagem)
+    st.info("Aviso: IA pode gerar respostas imprecisas, incompletas ou erradas. Sempre verifique informações críticas antes de confiar totalmente no conteúdo gerado.")
+
+    # Menu expansível (Sanfona) para o Suporte / Fale conosco
+    with st.expander("SOS - Suporte / Fale conosco"):
+        st.markdown("Se tiver dúvidas envie mensagem para\n**sergiolmendes2026@gmail.com**")
+        
+        # Botão estilizado do WhatsApp (substitua o número pelo seu com DDD, ex: 5511999999999)
+        whatsapp_url = whatsapp_url = "https://wa.me/55994376755?text=Olá,%20vim%20pelo%20Agente%20IA%20LaryMB!"
+        st.markdown(
+            f'''
+            <a href="{whatsapp_url}" target="_blank">
+                <button style="width:100%; background-color:#25D366; color:white; border:none; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+                    💬 Falar no WhatsApp
+                </button>
+            </a>
+            ''',
+            unsafe_allow_html=True
+        )
 
 # Título principal do app
 st.title("Agente de IA LaryMB v1")
