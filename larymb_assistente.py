@@ -24,26 +24,29 @@ st.markdown(
     
     .custom-header{
         position:relative;
-        overflow:hidden;
-        padding:10px 0px 25px 0px;
+        overflow:visible; /* Permite que a marca d'água respire se necessário */
+        padding:15px 0px 25px 0px;
         margin-bottom:20px;
         background:transparent;
         border:none;
         box-shadow:none;
     }
+    
+    /* Marca d'água centralizada e alinhada perfeitamente atrás do texto */
     .custom-header::before{
         content:"LARYMB";
         position:absolute;
-        left:0px;
-        top:-15px;
-        font-size:110px;
+        left:-10px;
+        top:-25px;
+        font-size:120px;
         line-height:1;
         font-weight:900;
-        letter-spacing:6px;
+        letter-spacing:8px;
         color:rgba(255,255,255,.025);
         pointer-events:none;
         z-index:0;
     }
+    
     .brand-label{
         position:relative;z-index:2;display:flex;align-items:center;gap:8px;margin-bottom:8px;
         color:#38bdf8;font-size:.76rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
@@ -59,7 +62,7 @@ st.markdown(
     [data-testid="stChatMessage"]{background:transparent;border:none;padding-top:.55rem;padding-bottom:.55rem;}
     [data-testid="stChatMessageContent"]{color:#E2E8F0;font-size:.97rem;line-height:1.7;}
     
-    /* Barra de Chat Ultra Elegante */
+    /* Barra de Chat Elegante */
     [data-testid="stChatInput"] {
         background: rgba(11, 22, 43, 0.85) !important;
         border: 1px solid rgba(56, 189, 248, 0.25) !important;
