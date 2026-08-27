@@ -3,101 +3,117 @@ from groq import Groq
 import textwrap
 
 st.set_page_config(
-    page_title="LaryMB AI — V1",
-    page_icon="✦",
-    layout="centered",
-    initial_sidebar_state="expanded",
+    page_title="LaryMB V1",
+    page_icon="🤖",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# DESIGN — LARYMB AI
-# ============================================================
+# ESTILOS CSS - Fundo exato da imagem enviada
 st.markdown(
-    """
+    textwrap.dedent("""
     <style>
-    /* Fundo geral da aplicação com o tom azul elegante e profundo */
+    /* Fundo degradê azul escuro elegante com brilho sutil no topo exatamente como na imagem */
     .stApp {
-        background: linear-gradient(135deg, #0b132b 0%, #081121 50%, #040810 100%);
-        color: #ffffff;
+        background: radial-gradient(circle at 50% 0%, #172033 0%, #0c111d 45%, #05070a 100%);
+        color: #F8FAFC;
     }
-
-    /* Cabeçalho totalmente livre, sem bordas ou caixas, com marca d'água integrada */
+    
+    .block-container {
+        max-width: 900px;
+        padding-top: 2.5rem;
+        padding-bottom: 6rem;
+        margin: 0 auto;
+    }
+    
+    [data-testid="stSidebar"] {
+        background: rgba(8, 12, 20, 0.95) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Cabeçalho Customizado */
     .custom-header {
         position: relative;
         padding: 10px 0px 20px 0px;
+        margin-bottom: 25px;
         background: transparent;
         border: none;
         box-shadow: none;
-        backdrop-filter: none;
-        margin-bottom: 20px;
-        overflow: hidden;
     }
-
-    /* Marca d'água grande e sutil ao fundo alinhada ao texto */
-    .custom-header::before {
-        content: "LARYMB";
-        position: absolute;
-        left: 0px;
-        top: -15px;
-        font-size: 110px;
-        font-weight: 900;
-        color: rgba(255, 255, 255, 0.025);
-        z-index: 0;
-        pointer-events: none;
-        letter-spacing: 6px;
-    }
-
-    .custom-tag {
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 2px;
+    .brand-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
         color: #38bdf8;
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        margin-bottom: 8px;
-        position: relative;
-        z-index: 1;
     }
-
+    .brand-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #38bdf8;
+        box-shadow: 0 0 12px rgba(56,189,248,.85);
+    }
     .custom-title {
-        font-size: 2.5rem;
+        margin: 0;
+        color: #FFFFFF;
+        font-size: 2.55rem;
+        line-height: 1.15;
         font-weight: 800;
-        color: #ffffff;
-        text-shadow: 0 2px 12px rgba(0, 180, 255, 0.25);
-        margin-bottom: 5px;
-        position: relative;
-        z-index: 1;
+        text-shadow: 0 2px 12px rgba(0,180,255,.25);
     }
-
     .custom-subtitle {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #99d6ff;
+        margin-top: 8px;
         margin-bottom: 8px;
-        position: relative;
-        z-index: 1;
+        color: #99d6ff;
+        font-size: 1.08rem;
+        font-weight: 600;
     }
-
     .custom-caption {
-        font-size: 0.9rem;
+        max-width: 690px;
         color: #8fb3d9;
-        position: relative;
-        z-index: 1;
+        font-size: .9rem;
+        line-height: 1.6;
     }
 
-    /* Rodapé elegante e limpo */
+    /* Mensagens de Chat com transparência harmonizada */
+    [data-testid="stChatMessage"] {
+        background: rgba(12, 18, 30, 0.6) !important;
+        border: 1px solid rgba(56, 189, 248, 0.12) !important;
+        border-radius: 16px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(8px);
+    }
+
+    /* Barra de Chat Flutuante */
+    [data-testid="stChatInput"] {
+        background: rgba(10, 15, 25, 0.9) !important;
+        border: 1px solid rgba(56, 189, 248, 0.25) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(10px);
+    }
+
     .watermark-center {
         text-align: center;
-        color: rgba(255, 255, 255, 0.35);
-        font-size: 0.85rem;
-        font-weight: 500;
-        letter-spacing: 1px;
-        margin: 35px 0;
-        user-select: none;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        color: #64748B;
+        font-size: 0.82rem;
+        margin-top: 3rem;
+    }
+    .footer-brand {
+        color: #38bdf8;
+        font-weight: 600;
     }
     </style>
-    """,
-    unsafe_allow_html=True
+    """),
+    unsafe_allow_html=True,
 )
+
+# O restante do seu código (Sidebar, Header, Chave da Groq, Chat e Rodapé) continua o mesmo.
 
 # ============================================================
 # PROMPT MESTRE — LARYMB V1
