@@ -647,44 +647,40 @@ with st.sidebar:
         st.rerun()
 
 # ============================================================
-# LOGOTIPO FIXO ALINHADO AO CHAT
+# LOGOTIPO FIXO NO TOPO - CENTRALIZADO E ELEGANTE
 # ============================================================
 st.markdown(
     """
     <style>
-        /* Fixa a imagem no topo respeitando o layout do Streamlit */
-        .fixed-logo-container {
+        /* Cria uma barra superior fixa para o logotipo */
+        .top-logo-bar {
             position: fixed;
             top: 0;
-            right: 0;
             left: 0;
-            z-index: 99999;
+            width: 100%;
             background-color: #0e1117;
-            padding: 8px 20px;
+            z-index: 99999;
             display: flex;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        .fixed-logo-container img {
-            max-height: 85px;
-            width: auto;
-            object-fit: contain;
-            border-radius: 8px;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Dá espaço no topo do chat para o logotipo fixo não cobrir as mensagens */
-        .block-container {
-            padding-top: 110px !important;
+        /* Empurra o chat para baixo para que ele não fique escondido sob a barra fixa */
+        .main .block-container {
+            padding-top: 105px !important;
         }
     </style>
-    
-    <div class="fixed-logo-container">
-        <img src="app/static/agente de ia larymb.png" onerror="this.style.display='none'">
-    </div>
     """,
     unsafe_allow_html=True
 )
+
+# Exibe a imagem oficialmente tratada pelo Streamlit centralizada no topo fixo
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image("agente de ia lm.png", use_container_width=True)
 
 
 
