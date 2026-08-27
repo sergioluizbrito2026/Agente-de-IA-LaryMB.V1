@@ -649,7 +649,8 @@ with st.sidebar:
 # ============================================================
 # CABEÇALHO PRINCIPAL
 # ============================================================
-st.image("logo_larymb.png", use_container_width=True)
+st.image("agente de ia larymb.png", use_container_width=True) 
+
 
 
 # ============================================================
