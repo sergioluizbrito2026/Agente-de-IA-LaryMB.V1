@@ -9,47 +9,66 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ============================================================
 # DESIGN — LARYMB AI
 # ============================================================
 st.markdown(
     textwrap.dedent("""
     <style>
     .stApp {
-        background: radial-gradient(circle at 50% -10%, rgba(124,140,255,.12), transparent 40%),
-                    linear-gradient(135deg,#080D1A 0%,#0A1020 50%,#050914 100%);
+        background: linear-gradient(135deg, #0b132b 0%, #081121 50%, #040810 100%);
         color:#F8FAFC;
     }
     .block-container{max-width:900px;padding-top:2rem;padding-bottom:5rem;}
-    [data-testid="stSidebar"]{background:#0B1220;border-right:1px solid rgba(255,255,255,.07);}
+    [data-testid="stSidebar"]{background:#060a14;border-right:1px solid rgba(255,255,255,.07);}
     [data-testid="stSidebar"] p{color:#94A3B8;font-size:.88rem;line-height:1.55;}
+    
     .custom-header{
-        position:relative;overflow:hidden;padding:32px 30px;margin-bottom:28px;border-radius:18px;
-        border:1px solid rgba(255,255,255,.08);
-        background:linear-gradient(145deg,rgba(17,28,50,.96),rgba(10,18,34,.92));
-        box-shadow:0 20px 50px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.03);
+        position:relative;
+        overflow:hidden;
+        padding:10px 0px 25px 0px;
+        margin-bottom:20px;
+        background:transparent;
+        border:none;
+        box-shadow:none;
     }
     .custom-header::before{
-        content:"LARYMB";position:absolute;right:-20px;top:-28px;font-size:110px;line-height:1;
-        font-weight:900;letter-spacing:7px;color:rgba(124,140,255,.035);pointer-events:none;
+        content:"LARYMB";
+        position:absolute;
+        left:0px;
+        top:-15px;
+        font-size:110px;
+        line-height:1;
+        font-weight:900;
+        letter-spacing:6px;
+        color:rgba(255,255,255,.025);
+        pointer-events:none;
+        z-index:0;
     }
-    .brand-label{position:relative;z-index:2;display:flex;align-items:center;gap:8px;margin-bottom:8px;
-        color:#A78BFA;font-size:.76rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;}
-    .brand-dot{width:7px;height:7px;border-radius:50%;background:#7C8CFF;box-shadow:0 0 12px rgba(124,140,255,.85);}
-    .custom-title{position:relative;z-index:2;margin:0;color:#F8FAFC;font-size:2.55rem;line-height:1.15;font-weight:800;letter-spacing:-1px;}
-    .custom-subtitle{position:relative;z-index:2;margin-top:10px;margin-bottom:9px;color:#A5B4FC;font-size:1.08rem;font-weight:500;}
-    .custom-caption{position:relative;z-index:2;max-width:690px;color:#94A3B8;font-size:.9rem;line-height:1.6;}
+    .brand-label{
+        position:relative;z-index:2;display:flex;align-items:center;gap:8px;margin-bottom:8px;
+        color:#38bdf8;font-size:.76rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    }
+    .brand-dot{width:7px;height:7px;border-radius:50%;background:#38bdf8;box-shadow:0 0 12px rgba(56,189,248,.85);}
+    .custom-title{
+        position:relative;z-index:2;margin:0;color:#FFFFFF;font-size:2.55rem;line-height:1.15;font-weight:800;
+        text-shadow:0 2px 12px rgba(0,180,255,.25);
+    }
+    .custom-subtitle{position:relative;z-index:2;margin-top:8px;margin-bottom:8px;color:#99d6ff;font-size:1.08rem;font-weight:600;}
+    .custom-caption{position:relative;z-index:2;max-width:690px;color:#8fb3d9;font-size:.9rem;line-height:1.6;}
+    
     [data-testid="stChatMessage"]{background:transparent;border:none;padding-top:.55rem;padding-bottom:.55rem;}
     [data-testid="stChatMessageContent"]{color:#E2E8F0;font-size:.97rem;line-height:1.7;}
     [data-testid="stChatInput"]{background:rgba(15,23,42,.97);border:1px solid #26344D;border-radius:16px;box-shadow:0 12px 35px rgba(0,0,0,.35);}
     [data-testid="stChatInput"] textarea{color:#F8FAFC!important;}
     [data-testid="stChatInput"] textarea::placeholder{color:#64748B!important;}
     .stButton>button{border-radius:10px;border:1px solid #26344D;background:#111B2E;color:#E2E8F0;}
-    .stButton>button:hover{border-color:#7C8CFF;color:#FFF;background:#17213A;}
+    .stButton>button:hover{border-color:#38bdf8;color:#FFF;background:#17213A;}
     [data-testid="stAlert"]{border-radius:12px;}
-    .watermark-center{margin:32px 0 10px;text-align:center;color:#64748B;font-size:.76rem;letter-spacing:.4px;user-select:none;}
-    .footer-brand{color:#7C8CFF;font-weight:700;}
-    @media(max-width:700px){.custom-header{padding:26px 22px;border-radius:14px}.custom-title{font-size:2rem}.custom-subtitle{font-size:.98rem}.custom-caption{font-size:.84rem}}
+    
+    .watermark-center{margin:35px 0 10px;text-align:center;color:rgba(255,255,255,0.35);font-size:.85rem;font-weight:500;letter-spacing:1px;user-select:none;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+    .footer-brand{color:#38bdf8;font-weight:700;}
+    
+    @media(max-width:700px){.custom-title{font-size:2rem}.custom-subtitle{font-size:.98rem}.custom-caption{font-size:.84rem}}
     </style>
     """),
     unsafe_allow_html=True,
