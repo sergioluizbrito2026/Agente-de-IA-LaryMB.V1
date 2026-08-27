@@ -614,14 +614,15 @@ with st.sidebar:
     st.info("Aviso: IA pode gerar respostas imprecisas, incompletas ou erradas. Sempre verifique informações críticas antes de confiar totalmente no conteúdo gerado.")
 
     # Menu expansível (Sanfona) para o Suporte / Fale conosco
+    # Menu expansível (Sanfona) para o Suporte / Fale conosco
     with st.expander("SOS - Suporte / Fale conosco"):
         st.markdown("Se tiver dúvidas envie mensagem para\n**sergiolmendes2026@gmail.com**")
         
-        # Botão estilizado do WhatsApp (substitua o número pelo seu com DDD, ex: 5511999999999)
-        whatsapp_url = whatsapp_url = "https://wa.me/55994376755?text=Olá,%20vim%20pelo%20Agente%20IA%20LaryMB!"
+        # URL e botão do WhatsApp sem sublinhado indesejado
+        whatsapp_url = "https://wa.me/55994376755?text=Olá,%20vim%20pelo%20Agente%20IA%20LaryMB!"
         st.markdown(
             f'''
-            <a href="{whatsapp_url}" target="_blank">
+            <a href="{whatsapp_url}" target="_blank" style="text-decoration: none !important;">
                 <button style="width:100%; background-color:#25D366; color:white; border:none; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
                     💬 Falar no WhatsApp
                 </button>
