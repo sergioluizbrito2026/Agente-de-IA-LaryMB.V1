@@ -650,15 +650,80 @@ with st.sidebar:
 # CABEÇALHO PRINCIPAL
 # ============================================================
 st.markdown(
-    textwrap.dedent("""
-    <div class="custom-header">
-        <div class="brand-label"><div class="brand-dot"></div>LaryMB AI</div>
-        <div class="custom-title">LaryMB V1</div>
-        <div class="custom-subtitle">Sua inteligência artificial para aprender, criar, analisar e resolver.</div>
-        <div class="custom-caption">Faça perguntas, explore ideias, estude, programe, analise informações e obtenha respostas claras e contextualizadas.</div>
+    """
+    <div style="
+        background: linear-gradient(135deg, #0c111d 0%, #172033 50%, #0c111d 100%);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 16px;
+        padding: 25px 35px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 25px;
+    ">
+        <!-- Marca d'água estilizada ao fundo -->
+        <div style="
+            position: absolute;
+            right: -20px;
+            bottom: -30px;
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(56, 189, 248, 0.03);
+            letter-spacing: -2px;
+            pointer-events: none;
+            user-select: none;
+        ">LARYMB AI</div>
+
+        <!-- Indicador de Status / Versão -->
+        <div style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: #38bdf8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        ">
+            <span style="width: 6px; height: 6px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 8px #38bdf8;"></span>
+            LaryMB AI • System V1
+        </div>
+
+        <!-- Título Principal com Tamanho Proporcional e Degradê Sofisticado -->
+        <h1 style="
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        ">LaryMB V1</h1>
+
+        <!-- Subtítulo -->
+        <p style="
+            color: #7dd3fc;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        ">Sua inteligência artificial para aprender, criar e resolver.</p>
+
+        <!-- Descrição Curta -->
+        <p style="
+            color: #94a3b8;
+            font-size: 0.88rem;
+            margin: 0;
+            max-width: 600px;
+            line-height: 1.5;
+        ">Faça perguntas, explore ideias, analise documentos ou desenvolva código com respostas rápidas e contextualizadas.</p>
     </div>
-    """),
-    unsafe_allow_html=True,
+    """,
+    unsafe_allow_html=True
 )
 
 # ============================================================
