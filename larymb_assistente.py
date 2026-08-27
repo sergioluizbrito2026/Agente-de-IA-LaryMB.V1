@@ -647,9 +647,28 @@ with st.sidebar:
         st.rerun()
 
 # ============================================================
-# CABEÇALHO PRINCIPAL
+# CABEÇALHO PRINCIPAL - LARGURA TOTAL
 # ============================================================
-st.image("agente de ia larymb.png", use_container_width=True) 
+st.markdown(
+    """
+    <style>
+        /* Remove o padding padrão do Streamlit no topo para a imagem colar nas bordas */
+        .block-container {
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        /* Força a imagem a preencher 100% da largura de ponta a ponta */
+        img[data-testid="stImage"] {
+            width: 100% !important;
+            border-radius: 12px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.image("agente de ia larymb.png", use_container_width=True)
 
 
 
