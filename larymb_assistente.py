@@ -646,13 +646,18 @@ with st.sidebar:
         st.session_state.messages = []
         st.rerun()
 
+import streamlit as st
+
 # ============================================================
-# LOGOTIPO FIXO NO TOPO - CENTRALIZADO E ELEGANTE
+# CONFIGURAÇÃO DO LOGOTIPO FIXO E ESTILOS GLOBAIS
 # ============================================================
 st.markdown(
     """
     <style>
-        /* Cria uma barra superior fixa para o logotipo */
+        /* Oculta o cabeçalho nativo do Streamlit */
+        header {visibility: hidden;}
+
+        /* Cria a barra superior fixa para o logotipo */
         .top-logo-bar {
             position: fixed;
             top: 0;
@@ -663,24 +668,90 @@ st.markdown(
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Empurra o chat para baixo para que ele não fique escondido sob a barra fixa */
+        /* Empurra o conteúdo do chat para baixo para não ficar sob a barra fixa */
         .main .block-container {
-            padding-top: 105px !important;
+            padding-top: 110px !important;
+        }
+
+        /* Estilização limpa para os avatares das mensagens */
+        div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
+            background-color: #d4af37 !important;
+            color: #0e1117 !important;
+        }
+
+        /* Estilo dos Cards Discretos de Sugestão */
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 12px 15px;
+            text-align: center;
+            color: #d1d5db;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            background: rgba(212, 175, 55, 0.05);
+            color: #ffffff;
         }
     </style>
+    
+    <div class="top-logo-bar">
+        <img src="app/static/agente de ia lm.png" onerror="this.style.display='none'">
+    </div>
     """,
     unsafe_allow_html=True
 )
 
-# Exibe a imagem oficialmente tratada pelo Streamlit centralizada no topo fixo
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
+# Exibe a imagem do logotipo centralizada e ajustada no topo
+col_l1, col_l2, col_l3 = st.columns([1, 2, 1])
+with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
+
+# ============================================================
+# 4 CARDS DISCRETOS DE SUGESTÃO
+# ============================================================
+st.markdown("<div style='height: 5px;'></div>", unsafe_allow_html=True)
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("""
+        <div class="suggestion-card">
+            💡 <b>Explorar ideia</b>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+        <div class="suggestion-card">
+            📚 <b>Estudar assunto</b>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+        <div class="suggestion-card">
+            💻 <b>Programar</b>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    st.markdown("""
+        <div class="suggestion-card">
+            📊 <b>Analisar dados</b>
+        </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
 
 
 
