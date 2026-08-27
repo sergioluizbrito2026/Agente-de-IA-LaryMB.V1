@@ -613,8 +613,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGOTIPO COMPACTO)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (TAMANHO PERFEITO E CENTRALIZADO)
 # ============================================================
 st.markdown(
     """
@@ -622,7 +624,7 @@ st.markdown(
         /* Oculta o cabeçalho nativo do Streamlit */
         header {visibility: hidden;}
 
-        /* Cria a barra superior fixa compacta para o logotipo */
+        /* Cria a barra superior fixa para o logotipo */
         .top-logo-bar {
             position: fixed;
             top: 0;
@@ -633,20 +635,20 @@ st.markdown(
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px 0;
-            box-shadow: {0 4px 15px rgba(0, 0, 0, 0.7)};
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Controla o tamanho compacto do logotipo na barra fixa do topo */
+        /* Controla o tamanho ideal e centralizado do logotipo na barra fixa */
         .top-logo-bar img {
-            max-height: 45px !important;
+            max-height: 70px !important;
             width: auto !important;
         }
 
-        /* Ajusta o espaço no topo da página de forma compacta */
+        /* Ajusta o espaço no topo da página */
         .main .block-container {
-            padding-top: 75px !important;
+            padding-top: 100px !important;
         }
 
         /* Estilização limpa para os avatares das mensagens */
@@ -691,15 +693,15 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo centralizado no topo com tamanho reduzido e elegante
-col_l1, col_l2, col_l3 = st.columns([2, 1, 2])
+# 1. Logotipo centralizado no topo com tamanho intermediário e elegante
+col_l1, col_l2, col_l3 = st.columns([1.5, 1, 1.5])
 with col_l2:
-    st.image("agente de ia lm.png", width=140)
+    st.image("agente de ia lm.png", width=220)
 
 # 2. Subtítulo / Frase descritiva
 st.markdown(
     """
-    <div style="text-align: center; margin-bottom: 15px; color: #94a3b8; font-size: 0.9rem;">
+    <div style="text-align: center; margin-bottom: 20px; color: #94a3b8; font-size: 0.95rem;">
         Sua inteligência artificial para aprender, criar, analisar e resolver.
     </div>
     """,
@@ -722,9 +724,9 @@ with col4:
 # 4. Saudação de boas-vindas
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
+    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
         <h4 style="color: #ffffff; margin-bottom: 2px; font-weight: 600;">Olá 👋</h4>
-        <p style="color: #94a3b8; font-size: 0.85rem;">Como posso ajudar você hoje?</p>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
     </div>
     """,
     unsafe_allow_html=True
