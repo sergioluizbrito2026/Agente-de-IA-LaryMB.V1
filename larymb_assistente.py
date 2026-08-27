@@ -647,46 +647,44 @@ with st.sidebar:
         st.rerun()
 
 # ============================================================
-# LOGOTIPO FIXO NO TOPO (NÃO SOME AO ROLAR A TELA)
+# LOGOTIPO FIXO ALINHADO AO CHAT
 # ============================================================
 st.markdown(
     """
     <style>
-        /* Oculta o cabeçalho nativo padrão do Streamlit para liberar espaço */
-        header {visibility: hidden;}
-        
-        /* Fixa o elemento da imagem no topo de ponta a ponta */
-        .stImage {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            z-index: 999999 !important;
+        /* Fixa a imagem no topo respeitando o layout do Streamlit */
+        .fixed-logo-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 99999;
             background-color: #0e1117;
-            margin: 0 !important;
-            padding: 0 !important;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
         
-        /* Garante que a imagem dentro do container cubra a largura sem distorcer */
-        .stImage img {
-            width: 100% !important;
-            max-height: 110px !important;
-            object-fit: cover !important;
-            display: block !important;
-            border-radius: 0 !important;
+        .fixed-logo-container img {
+            max-height: 85px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
         }
 
-        /* Empurra o conteúdo do chat para baixo para que ele comece abaixo da imagem fixa */
-        .main .block-container {
-            padding-top: 130px !important;
-            max-width: 100% !important;
+        /* Dá espaço no topo do chat para o logotipo fixo não cobrir as mensagens */
+        .block-container {
+            padding-top: 110px !important;
         }
     </style>
+    
+    <div class="fixed-logo-container">
+        <img src="app/static/agente de ia larymb.png" onerror="this.style.display='none'">
+    </div>
     """,
     unsafe_allow_html=True
 )
-
-st.image("agente de ia larymb.png", use_container_width=True)
 
 
 
