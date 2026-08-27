@@ -647,28 +647,34 @@ with st.sidebar:
         st.rerun()
 
 # ============================================================
-# CABEÇALHO PRINCIPAL - LARGURA TOTAL
+# CABEÇALHO PRINCIPAL - LARGURA TOTAL REAL
 # ============================================================
 st.markdown(
     """
     <style>
-        /* Remove o padding padrão do Streamlit no topo para a imagem colar nas bordas */
+        /* Expande o container principal para aproveitar melhor o espaço */
         .block-container {
-            padding-top: 1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
+            padding-left: 0rem !important;
+            padding-right: 0rem !important;
         }
-        /* Força a imagem a preencher 100% da largura de ponta a ponta */
-        img[data-testid="stImage"] {
+        /* Faz a imagem esticar de ponta a ponta na tela */
+        .full-width-image img {
             width: 100% !important;
-            border-radius: 12px;
+            height: auto !important;
+            display: block;
         }
     </style>
+    
+    <div class="full-width-image">
     """,
     unsafe_allow_html=True
 )
 
 st.image("agente de ia larymb.png", use_container_width=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 
 
