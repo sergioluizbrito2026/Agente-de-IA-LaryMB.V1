@@ -17,39 +17,35 @@ st.markdown(
     .stApp {
         background: linear-gradient(135deg, #0b132b 0%, #081121 50%, #040810 100%);
         color:#F8FAFC;
-        position: relative;
-        overflow-x: hidden;
     }
-    
-    /* Marca d'água global fixa no topo, cobrindo perfeitamente o fundo sem cortes */
-    .stApp::before {
-        content: "LARYMB";
-        position: absolute;
-        left: 50%;
-        top: 20px;
-        transform: translateX(-50%);
-        font-size: 140px;
-        line-height: 1;
-        font-weight: 900;
-        letter-spacing: 12px;
-        color: rgba(255, 255, 255, 0.02);
-        pointer-events: none;
-        z-index: 0;
-        white-space: nowrap;
-    }
-
-    .block-container{max-width:900px;padding-top:2rem;padding-bottom:6rem; position: relative; z-index: 1;}
+    .block-container{max-width:900px;padding-top:2rem;padding-bottom:6rem;}
     [data-testid="stSidebar"]{background:#060a14;border-right:1px solid rgba(255,255,255,.07);}
     [data-testid="stSidebar"] p{color:#94A3B8;font-size:.88rem;line-height:1.55;}
     
     .custom-header{
-        position:relative;
-        padding:15px 0px 25px 0px;
-        margin-bottom:20px;
-        background:transparent;
-        border:none;
-        box-shadow:none;
-        z-index: 2;
+        position: relative;
+        padding: 20px 0px 25px 0px;
+        margin-bottom: 20px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    
+    /* Marca d'água perfeitamente centralizada e visível no topo */
+    .custom-header::before {
+        content: "LARYMB";
+        position: absolute;
+        left: 50%;
+        top: -10px;
+        transform: translateX(-50%);
+        font-size: 120px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: 10px;
+        color: rgba(255, 255, 255, 0.025);
+        pointer-events: none;
+        z-index: 0;
+        white-space: nowrap;
     }
     
     .brand-label{
