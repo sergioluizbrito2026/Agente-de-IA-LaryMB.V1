@@ -648,6 +648,8 @@ with st.sidebar:
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
 # CONFIGURAÇÃO DO LOGOTIPO FIXO E ESTILOS GLOBAIS
 # ============================================================
@@ -675,7 +677,7 @@ st.markdown(
 
         /* Empurra o conteúdo do chat para baixo para não ficar sob a barra fixa */
         .main .block-container {
-            padding-top: 110px !important;
+            padding-top: 115px !important;
         }
 
         /* Estilização limpa para os avatares das mensagens */
@@ -684,22 +686,22 @@ st.markdown(
             color: #0e1117 !important;
         }
 
-        /* Estilo dos Cards Discretos de Sugestão */
+        /* Estilo dos Cards Discretos */
         .suggestion-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 10px;
-            padding: 12px 15px;
+            padding: 10px 15px;
             text-align: center;
-            color: #d1d5db;
+            color: #e5e7eb;
             font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s ease;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .suggestion-card:hover {
-            border-color: rgba(212, 175, 55, 0.6);
-            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.08);
             color: #ffffff;
         }
     </style>
@@ -711,47 +713,44 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Exibe a imagem do logotipo centralizada e ajustada no topo
+# 1. Logotipo centralizado no topo fixo
 col_l1, col_l2, col_l3 = st.columns([1, 2, 1])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
 
-# ============================================================
-# 4 CARDS DISCRETOS DE SUGESTÃO
-# ============================================================
-st.markdown("<div style='height: 5px;'></div>", unsafe_allow_html=True)
+# 2. Subtítulo / Frase descritiva
+st.markdown(
+    """
+    <div style="text-align: center; margin-bottom: 20px; color: #94a3b8; font-size: 0.95rem;">
+        Sua inteligência artificial para aprender, criar, analisar e resolver.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-col1, col2, col3, col4 = st.columns(4)
-
+# 3. Cards Divididos em Duas Linhas (2 por linha)
+col1, col2 = st.columns(2)
 with col1:
-    st.markdown("""
-        <div class="suggestion-card">
-            💡 <b>Explorar ideia</b>
-        </div>
-    """, unsafe_allow_html=True)
-
+    st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
 with col2:
-    st.markdown("""
-        <div class="suggestion-card">
-            📚 <b>Estudar assunto</b>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="suggestion-card">📚 Estudar um assunto</div>', unsafe_allow_html=True)
 
+col3, col4 = st.columns(2)
 with col3:
-    st.markdown("""
-        <div class="suggestion-card">
-            💻 <b>Programar</b>
-        </div>
-    """, unsafe_allow_html=True)
-
+    st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
 with col4:
-    st.markdown("""
-        <div class="suggestion-card">
-            📊 <b>Analisar dados</b>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="suggestion-card">📊 Analisar informações</div>', unsafe_allow_html=True)
 
-st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+# 4. Saudação de boas-vindas
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
+        <h3 style="color: #ffffff; margin-bottom: 5px; font-weight: 700;">Olá 👋</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 
