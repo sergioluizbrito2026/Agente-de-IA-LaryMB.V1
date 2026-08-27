@@ -10,117 +10,78 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ESTILOS CSS - Fundo e Sidebar harmonizados com o tom elegante da referência
+import streamlit as st
+
+# ============================================================
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (COLOCAR NO COMEÇO DO CÓDIGO)
+# ============================================================
 st.markdown(
-    textwrap.dedent("""
+    """
     <style>
-    /* Fundo degradê principal */
-    .stApp {
-        background: radial-gradient(circle at 50% 0%, #172033 0%, #0c111d 45%, #05070a 100%);
-        color: #F8FAFC;
-    }
-    
-    .block-container {
-        max-width: 900px;
-        padding-top: 2.5rem;
-        padding-bottom: 6rem;
-        margin: 0 auto;
-    }
-    
-    /* Barra Lateral (Sidebar) com o mesmo tom elegante e translúcido */
-    [data-testid="stSidebar"] {
-        background: rgba(12, 17, 29, 0.88) !important;
-        border-right: 1px solid rgba(56, 189, 248, 0.1);
-        backdrop-filter: blur(12px);
-    }
-    
-    /* Ajustes visuais internos da Sidebar para combinar perfeitamente */
-    [data-testid="stSidebar"] .stAlert {
-        background: rgba(17, 26, 43, 0.7) !important;
-        border: 1px solid rgba(56, 189, 248, 0.15) !important;
-        color: #99d6ff !important;
-    }
+        /* Oculta o cabeçalho nativo do Streamlit */
+        header {visibility: hidden;}
 
-    /* Cabeçalho Customizado */
-    .custom-header {
-        position: relative;
-        padding: 10px 0px 20px 0px;
-        margin-bottom: 25px;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-    }
-    .brand-label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 8px;
-        color: #38bdf8;
-        font-size: .76rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
-    .brand-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #38bdf8;
-        box-shadow: 0 0 12px rgba(56,189,248,.85);
-    }
-    .custom-title {
-        margin: 0;
-        color: #FFFFFF;
-        font-size: 2.55rem;
-        line-height: 1.15;
-        font-weight: 800;
-        text-shadow: 0 2px 12px rgba(0,180,255,.25);
-    }
-    .custom-subtitle {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        color: #99d6ff;
-        font-size: 1.08rem;
-        font-weight: 600;
-    }
-    .custom-caption {
-        max-width: 690px;
-        color: #8fb3d9;
-        font-size: .9rem;
-        line-height: 1.6;
-    }
+        /* Cria a barra superior fixa para o logotipo */
+        .top-logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0e1117;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
 
-    /* Mensagens de Chat */
-    [data-testid="stChatMessage"] {
-        background: rgba(12, 18, 30, 0.6) !important;
-        border: 1px solid rgba(56, 189, 248, 0.12) !important;
-        border-radius: 16px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        backdrop-filter: blur(8px);
-    }
+        /* Empurra o conteúdo do chat para baixo para não ficar sob a barra fixa */
+        .main .block-container {
+            padding-top: 115px !important;
+        }
 
-    /* Barra de Chat Flutuante */
-    [data-testid="stChatInput"] {
-        background: rgba(10, 15, 25, 0.9) !important;
-        border: 1px solid rgba(56, 189, 248, 0.25) !important;
-        border-radius: 20px !important;
-        backdrop-filter: blur(10px);
-    }
+        /* Estilização limpa para os avatares das mensagens */
+        div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
+            background-color: #d4af37 !important;
+            color: #0e1117 !important;
+        }
 
-    .watermark-center {
-        text-align: center;
-        color: #64748B;
-        font-size: 0.82rem;
-        margin-top: 3rem;
-    }
-    .footer-brand {
-        color: #38bdf8;
-        font-weight: 600;
-    }
+        /* Estilo dos Cards Discretos */
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 10px 15px;
+            text-align: center;
+            color: #e5e7eb;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.08);
+            color: #ffffff;
+        }
+
+        /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
+        div.stChatMessage[data-testid="stChatMessage-assistant"] {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
     </style>
-    """),
-    unsafe_allow_html=True,
+    
+    <div class="top-logo-bar">
+        <img src="app/static/agente de ia lm.png" onerror="this.style.display='none'">
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
 # ============================================================
