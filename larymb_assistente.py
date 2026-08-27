@@ -615,8 +615,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (TAMANHO PERFEITO E CENTRALIZADO)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (CARDS MAIORES E ALINHAMENTO)
 # ============================================================
 st.markdown(
     """
@@ -640,7 +642,7 @@ st.markdown(
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Controla o tamanho ideal e centralizado do logotipo na barra fixa */
+        /* Controla o tamanho do logotipo na barra fixa */
         .top-logo-bar img {
             max-height: 70px !important;
             width: auto !important;
@@ -648,7 +650,8 @@ st.markdown(
 
         /* Ajusta o espaço no topo da página */
         .main .block-container {
-            padding-top: 100px !important;
+            padding-top: 110px !important;
+            max-width: 900px !important; /* Centraliza e limita a largura para dar harmonia */
         }
 
         /* Estilização limpa para os avatares das mensagens */
@@ -657,23 +660,24 @@ st.markdown(
             color: #0e1117 !important;
         }
 
-        /* Estilo dos Cards Discretos */
+        /* Estilo dos Cards Maiores e Mais Espaçosos */
         .suggestion-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 10px;
-            padding: 10px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px; /* Aumenta o tamanho interno (altura/largura) */
             text-align: center;
-            color: #e5e7eb;
-            font-size: 0.85rem;
-            font-weight: 500;
+            color: #ffffff;
+            font-size: 0.95rem; /* Letra um pouco maior */
+            font-weight: 600;
             transition: all 0.3s ease;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .suggestion-card:hover {
-            border-color: rgba(212, 175, 55, 0.8);
+            border-color: rgba(212, 175, 55, 0.9);
             background: rgba(212, 175, 55, 0.08);
-            color: #ffffff;
+            transform: translateY(-2px);
         }
 
         /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
@@ -693,22 +697,22 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo centralizado no topo com tamanho intermediário e elegante
-col_l1, col_l2, col_l3 = st.columns([1.5, 1, 1.5])
+# 1. Logotipo perfeitamente centralizado
+col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
 with col_l2:
-    st.image("agente de ia lm.png", width=220)
+    st.image("agente de ia lm.png", use_container_width=True)
 
-# 2. Subtítulo / Frase descritiva
+# 2. Frase descritiva alinhada exatamente ao centro
 st.markdown(
     """
-    <div style="text-align: center; margin-bottom: 20px; color: #94a3b8; font-size: 0.95rem;">
+    <div style="text-align: center; margin-top: 5px; margin-bottom: 25px; color: #94a3b8; font-size: 1rem;">
         Sua inteligência artificial para aprender, criar, analisar e resolver.
     </div>
     """,
     unsafe_allow_html=True
 )
 
-# 3. Cards Divididos em Duas Linhas (2 por linha)
+# 3. Cards Maiores Divididos em Duas Colunas (Lado a Lado)
 col1, col2 = st.columns(2)
 with col1:
     st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
@@ -724,14 +728,13 @@ with col4:
 # 4. Saudação de boas-vindas
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
-        <h4 style="color: #ffffff; margin-bottom: 2px; font-weight: 600;">Olá 👋</h4>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 15px;">
+        <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
+        <p style="color: #94a3b8; font-size: 0.95rem;">Como posso ajudar você hoje?</p>
     </div>
     """,
     unsafe_allow_html=True
 )
-
 
 # ============================================================
 # HISTÓRICO DE MENSAGENS
