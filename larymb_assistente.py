@@ -18,35 +18,69 @@ st.markdown(
         background: linear-gradient(135deg, #0b132b 0%, #081121 50%, #040810 100%);
         color:#F8FAFC;
     }
-    .block-container{max-width:900px;padding-top:2rem;padding-bottom:6rem;}
+    .block-container{
+        max-width: 900px;
+        padding-top: 3rem;
+        padding-bottom: 6rem;
+        margin: 0 auto;
+    }
     [data-testid="stSidebar"]{background:#060a14;border-right:1px solid rgba(255,255,255,.07);}
     [data-testid="stSidebar"] p{color:#94A3B8;font-size:.88rem;line-height:1.55;}
     
+    /* Cabeçalho limpo, sem marca d'água e perfeitamente alinhado */
     .custom-header{
         position: relative;
-        padding: 15px 0px 20px 0px;
-        margin-bottom: 20px;
+        padding: 10px 0px 20px 0px;
+        margin-bottom: 25px;
         background: transparent;
         border: none;
         box-shadow: none;
     }
     
     .brand-label{
-        position:relative;z-index:2;display:flex;align-items:center;gap:8px;margin-bottom:8px;
-        color:#38bdf8;font-size:.76rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: #38bdf8;
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
     }
-    .brand-dot{width:7px;height:7px;border-radius:50%;background:#38bdf8;box-shadow:0 0 12px rgba(56,189,248,.85);}
+    .brand-dot{
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #38bdf8;
+        box-shadow: 0 0 12px rgba(56,189,248,.85);
+    }
     .custom-title{
-        position:relative;z-index:2;margin:0;color:#FFFFFF;font-size:2.55rem;line-height:1.15;font-weight:800;
-        text-shadow:0 2px 12px rgba(0,180,255,.25);
+        margin: 0;
+        color: #FFFFFF;
+        font-size: 2.55rem;
+        line-height: 1.15;
+        font-weight: 800;
+        text-shadow: 0 2px 12px rgba(0,180,255,.25);
     }
-    .custom-subtitle{position:relative;z-index:2;margin-top:8px;margin-bottom:8px;color:#99d6ff;font-size:1.08rem;font-weight:600;}
-    .custom-caption{position:relative;z-index:2;max-width:690px;color:#8fb3d9;font-size:.9rem;line-height:1.6;}
+    .custom-subtitle{
+        margin-top: 8px;
+        margin-bottom: 8px;
+        color: #99d6ff;
+        font-size: 1.08rem;
+        font-weight: 600;
+    }
+    .custom-caption{
+        max-width: 690px;
+        color: #8fb3d9;
+        font-size: .9rem;
+        line-height: 1.6;
+    }
     
     [data-testid="stChatMessage"]{background:transparent;border:none;padding-top:.55rem;padding-bottom:.55rem;}
     [data-testid="stChatMessageContent"]{color:#E2E8F0;font-size:.97rem;line-height:1.7;}
     
-    /* Barra de Chat Elegante */
+    /* Barra de Chat Elegante e Alinhada */
     [data-testid="stChatInput"] {
         background: rgba(11, 22, 43, 0.85) !important;
         border: 1px solid rgba(56, 189, 248, 0.25) !important;
