@@ -759,7 +759,7 @@ if groq_api_key:
 # ============================================================
 # CHAT E ENTRADA
 # ============================================================
-if prompt := st.chat_input("Em que posso ajudar hoje?..."):
+if prompt := st.chat_input("Digite uma mensagem para a Larymb..."):
     if not client:
         st.warning("Configure a GROQ_API_KEY nos Secrets do Streamlit Cloud ou informe a chave na barra lateral.")
         st.stop()
