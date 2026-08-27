@@ -2,13 +2,17 @@ import streamlit as st
 from groq import Groq
 import textwrap
 
+import streamlit as st
+import textwrap
+
 st.set_page_config(
-    page_title="LaryMB AI — V1",
-    page_icon="✦",
-    layout="centered",
-    initial_sidebar_state="expanded",
+    page_title="LaryMB V1",
+    page_icon="🤖",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
+# ESTILOS CSS COMPLETOS
 st.markdown(
     textwrap.dedent("""
     <style>
@@ -30,7 +34,56 @@ st.markdown(
         border-right: 1px solid rgba(255, 255, 255, 0.07);
     }
     
-    /* Demais estilos do chat e do cabeçalho */
+    /* Cabeçalho Customizado Formatado */
+    .custom-header {
+        position: relative;
+        padding: 10px 0px 20px 0px;
+        margin-bottom: 25px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    .brand-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: #38bdf8;
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+    .brand-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #38bdf8;
+        box-shadow: 0 0 12px rgba(56,189,248,.85);
+    }
+    .custom-title {
+        margin: 0;
+        color: #FFFFFF;
+        font-size: 2.55rem;
+        line-height: 1.15;
+        font-weight: 800;
+        text-shadow: 0 2px 12px rgba(0,180,255,.25);
+    }
+    .custom-subtitle {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        color: #99d6ff;
+        font-size: 1.08rem;
+        font-weight: 600;
+    }
+    .custom-caption {
+        max-width: 690px;
+        color: #8fb3d9;
+        font-size: .9rem;
+        line-height: 1.6;
+    }
+
+    /* Barra de Chat Elegante */
     [data-testid="stChatInput"] {
         background: rgba(11, 22, 43, 0.85) !important;
         border: 1px solid rgba(56, 189, 248, 0.25) !important;
@@ -41,6 +94,39 @@ st.markdown(
     """),
     unsafe_allow_html=True,
 )
+
+# BARRA LATERAL
+with st.sidebar:
+    st.markdown("### ⚡ LaryMB AI")
+    st.caption("Inteligência Artificial • V1")
+    st.write("Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.")
+    st.markdown("---")
+    st.warning("⚠️ **A LaryMB pode cometer erros.** Verifique informações importantes antes de tomar decisões.")
+    
+    with st.expander("📌 Suporte / Fale conosco"):
+        st.write("Encontrou um problema ou precisa de ajuda?")
+        st.markdown("**E-mail:** [contato@larymb.com](mailto:contato@larymb.com)")
+        if st.button("Falar no WhatsApp"):
+            st.toast("Redirecionando para o WhatsApp...")
+
+    st.markdown("---")
+    if st.button("🗑️ Limpar conversa"):
+        st.toast("Histórico limpo com sucesso!")
+
+# CABEÇALHO PRINCIPAL CORRIGIDO E FORMATADO
+st.markdown("""
+    <div class="custom-header">
+        <div class="brand-label"><div class="brand-dot"></div> LaryMB AI</div>
+        <h1 class="custom-title">LaryMB V1</h1>
+        <div class="custom-subtitle">Sua inteligência artificial para aprender, criar, analisar e resolver.</div>
+        <div class="custom-caption">
+            Faça perguntas, explore ideias, estude, programe, analise informações e obtenha respostas claras e contextualizadas.
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
+# ENTRADA DE CHAT
+st.chat_input("Pergunte qualquer coisa...")
 # ============================================================
 # PROMPT MESTRE — LARYMB V1
 # ============================================================
