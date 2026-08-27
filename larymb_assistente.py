@@ -12,66 +12,91 @@ st.set_page_config(
 # DESIGN — LARYMB AI
 # ============================================================
 st.markdown(
-    textwrap.dedent("""
+    """
     <style>
+    /* Fundo geral da aplicação com o tom azul elegante e profundo */
     .stApp {
         background: linear-gradient(135deg, #0b132b 0%, #081121 50%, #040810 100%);
-        color:#F8FAFC;
+        color: #ffffff;
     }
-    .block-container{max-width:900px;padding-top:2rem;padding-bottom:5rem;}
-    [data-testid="stSidebar"]{background:#060a14;border-right:1px solid rgba(255,255,255,.07);}
-    [data-testid="stSidebar"] p{color:#94A3B8;font-size:.88rem;line-height:1.55;}
-    
-    .custom-header{
-        position:relative;
-        overflow:hidden;
-        padding:10px 0px 25px 0px;
-        margin-bottom:20px;
-        background:transparent;
-        border:none;
-        box-shadow:none;
+
+    /* Cabeçalho totalmente livre, sem bordas ou caixas, com marca d'água integrada */
+    .custom-header {
+        position: relative;
+        padding: 10px 0px 20px 0px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        margin-bottom: 20px;
+        overflow: hidden;
     }
-    .custom-header::before{
-        content:"LARYMB";
-        position:absolute;
-        left:0px;
-        top:-15px;
-        font-size:110px;
-        line-height:1;
-        font-weight:900;
-        letter-spacing:6px;
-        color:rgba(255,255,255,.025);
-        pointer-events:none;
-        z-index:0;
+
+    /* Marca d'água grande e sutil ao fundo alinhada ao texto */
+    .custom-header::before {
+        content: "LARYMB";
+        position: absolute;
+        left: 0px;
+        top: -15px;
+        font-size: 110px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.025);
+        z-index: 0;
+        pointer-events: none;
+        letter-spacing: 6px;
     }
-    .brand-label{
-        position:relative;z-index:2;display:flex;align-items:center;gap:8px;margin-bottom:8px;
-        color:#38bdf8;font-size:.76rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+
+    .custom-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #38bdf8;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
     }
-    .brand-dot{width:7px;height:7px;border-radius:50%;background:#38bdf8;box-shadow:0 0 12px rgba(56,189,248,.85);}
-    .custom-title{
-        position:relative;z-index:2;margin:0;color:#FFFFFF;font-size:2.55rem;line-height:1.15;font-weight:800;
-        text-shadow:0 2px 12px rgba(0,180,255,.25);
+
+    .custom-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0, 180, 255, 0.25);
+        margin-bottom: 5px;
+        position: relative;
+        z-index: 1;
     }
-    .custom-subtitle{position:relative;z-index:2;margin-top:8px;margin-bottom:8px;color:#99d6ff;font-size:1.08rem;font-weight:600;}
-    .custom-caption{position:relative;z-index:2;max-width:690px;color:#8fb3d9;font-size:.9rem;line-height:1.6;}
-    
-    [data-testid="stChatMessage"]{background:transparent;border:none;padding-top:.55rem;padding-bottom:.55rem;}
-    [data-testid="stChatMessageContent"]{color:#E2E8F0;font-size:.97rem;line-height:1.7;}
-    [data-testid="stChatInput"]{background:rgba(15,23,42,.97);border:1px solid #26344D;border-radius:16px;box-shadow:0 12px 35px rgba(0,0,0,.35);}
-    [data-testid="stChatInput"] textarea{color:#F8FAFC!important;}
-    [data-testid="stChatInput"] textarea::placeholder{color:#64748B!important;}
-    .stButton>button{border-radius:10px;border:1px solid #26344D;background:#111B2E;color:#E2E8F0;}
-    .stButton>button:hover{border-color:#38bdf8;color:#FFF;background:#17213A;}
-    [data-testid="stAlert"]{border-radius:12px;}
-    
-    .watermark-center{margin:35px 0 10px;text-align:center;color:rgba(255,255,255,0.35);font-size:.85rem;font-weight:500;letter-spacing:1px;user-select:none;text-shadow:0 1px 2px rgba(0,0,0,.6);}
-    .footer-brand{color:#38bdf8;font-weight:700;}
-    
-    @media(max-width:700px){.custom-title{font-size:2rem}.custom-subtitle{font-size:.98rem}.custom-caption{font-size:.84rem}}
+
+    .custom-subtitle {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #99d6ff;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .custom-caption {
+        font-size: 0.9rem;
+        color: #8fb3d9;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Rodapé elegante e limpo */
+    .watermark-center {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin: 35px 0;
+        user-select: none;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
     </style>
-    """),
-    unsafe_allow_html=True,
+    """,
+    unsafe_allow_html=True
 )
 
 # ============================================================
