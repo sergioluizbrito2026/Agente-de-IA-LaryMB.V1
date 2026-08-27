@@ -649,7 +649,7 @@ with st.sidebar:
 # ============================================================
 # CABEÇALHO PRINCIPAL
 # ============================================================
-st.image("header_larymb.png.png", use_container_width=True)
+st.image("logo_larymb.png", use_container_width=True)
 
 
 # ============================================================
