@@ -272,14 +272,3 @@ if prompt := st.chat_input("Pergunte qualquer coisa..."):
                 st.error("Não foi possível obter uma resposta da IA.")
                 st.caption(f"Detalhes técnicos: {e}")
 
-# ============================================================
-# RODAPÉ
-# ============================================================
-st.markdown(
-    textwrap.dedent("""
-    <div class="watermark-center">
-        <span class="footer-brand">✦ LaryMB AI</span>&nbsp;•&nbsp;V1&nbsp;•&nbsp;Inteligência que transforma perguntas em soluções.
-    </div>
-    """),
-    unsafe_allow_html=True,
-)
