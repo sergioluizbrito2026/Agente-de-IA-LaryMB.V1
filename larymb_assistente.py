@@ -647,47 +647,46 @@ with st.sidebar:
         st.rerun()
 
 # ============================================================
-# CABEÇALHO FIXO NO TOPO (HEADER STICKY)
+# LOGOTIPO FIXO NO TOPO (NÃO SOME AO ROLAR A TELA)
 # ============================================================
 st.markdown(
     """
     <style>
-        /* Fixa o container do topo para que ele acompanhe ou fique travado */
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 99999;
-            background-color: #0e1117;
-            padding: 10px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
+        /* Oculta o cabeçalho nativo padrão do Streamlit para liberar espaço */
+        header {visibility: hidden;}
         
-        /* Adiciona um espaçamento no topo da página para o chat não ficar escondido debaixo do banner fixo */
-        .block-container {
-            padding-top: 140px !important;
-            max-width: 100% !important;
-            padding-left: 0rem !important;
-            padding-right: 0rem !important;
-        }
-        
-        .fixed-header img {
+        /* Fixa o elemento da imagem no topo de ponta a ponta */
+        .stImage {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
             width: 100% !important;
-            max-height: 120px;
-            object-fit: cover;
-            display: block;
+            z-index: 999999 !important;
+            background-color: #0e1117;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        /* Garante que a imagem dentro do container cubra a largura sem distorcer */
+        .stImage img {
+            width: 100% !important;
+            max-height: 110px !important;
+            object-fit: cover !important;
+            display: block !important;
+            border-radius: 0 !important;
+        }
+
+        /* Empurra o conteúdo do chat para baixo para que ele comece abaixo da imagem fixa */
+        .main .block-container {
+            padding-top: 130px !important;
+            max-width: 100% !important;
         }
     </style>
-    
-    <div class="fixed-header">
     """,
     unsafe_allow_html=True
 )
 
 st.image("agente de ia larymb.png", use_container_width=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
 
 
 
