@@ -621,8 +621,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGOTIPO MENOR + INPUT AJUSTADO)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (AZUL BRILHANTE + LOGO MENOR + INPUT AJUSTADO)
 # ============================================================
 st.markdown(
     """
@@ -630,23 +632,29 @@ st.markdown(
         /* Oculta o cabeçalho nativo do Streamlit */
         header {visibility: hidden;}
 
-        /* Cria a barra superior fixa para o logotipo (um pouco menor) */
+        /* Fundo geral da aplicação com o azul brilhante elegante */
+        .stApp {
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0b132b 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* Cria a barra superior fixa para o logotipo com o tom azulado */
         .top-logo-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #0e1117;
+            background: linear-gradient(90deg, #0b132b 0%, #1c2541 50%, #0b132b 100%);
             z-index: 99999;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 4px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
 
-        /* Controla o tamanho ligeiramente menor e refinado do logotipo no topo */
+        /* Controla o tamanho reduzido e refinado do logotipo no topo */
         .top-logo-bar img {
             max-height: 42px !important;
             width: auto !important;
@@ -661,7 +669,7 @@ st.markdown(
         /* Estilização limpa para os avatares das mensagens */
         div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
             background-color: #d4af37 !important;
-            color: #0e1117 !important;
+            color: #0b132b !important;
         }
 
         /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
@@ -680,8 +688,8 @@ st.markdown(
         }
         
         .stChatInput textarea {
-            background-color: rgba(255, 255, 255, 0.03) !important;
-            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            background-color: rgba(28, 37, 65, 0.6) !important;
+            border: 1px solid rgba(212, 175, 55, 0.35) !important;
             border-radius: 12px !important;
             color: #ffffff !important;
             font-size: 0.95rem !important;
@@ -694,12 +702,12 @@ st.markdown(
 
         .stChatInput textarea:focus {
             border-color: rgba(212, 175, 55, 0.9) !important;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.15) !important;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2) !important;
         }
 
-        /* Estilo dos Cards em Linha Única */
+        /* Estilo dos Cards em Linha Única com fundo azul brilhante sutil */
         .suggestion-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(28, 37, 65, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 10px;
             padding: 10px 8px;
@@ -712,7 +720,7 @@ st.markdown(
         }
         .suggestion-card:hover {
             border-color: rgba(212, 175, 55, 0.8);
-            background: rgba(212, 175, 55, 0.08);
+            background: rgba(212, 175, 55, 0.12);
             color: #ffffff;
         }
     </style>
@@ -755,7 +763,7 @@ with c3:
 with s3:
     st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
 with c4:
-    st.markdown('<div class="suggestion-card">📊 Analisar dados</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
 
 # 4. Saudação de boas-vindas
 st.markdown(
