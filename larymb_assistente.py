@@ -689,11 +689,127 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+import streamlit as st
+
 # ============================================================
-# CONTEÚDO DA BARRA LATERAL (SIDEBAR)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO
+# ============================================================
+st.markdown(
+    """
+    <style>
+        /* Oculta o cabeçalho nativo do Streamlit */
+        header {visibility: hidden;}
+
+        /* Fundo geral: Azul mais escuro, profundo e com brilho central elegante */
+        .stApp {
+            background: radial-gradient(circle at 50% 25%, #132247 0%, #070d1b 60%, #03070f 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* Estilização da Barra Lateral (Sidebar) */
+        [data-testid="stSidebar"] {
+            background-color: #070d1b !important;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Cria a barra superior fixa para o logotipo principal no topo */
+        .top-logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #070d1b 0%, #132247 50%, #070d1b 100%);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        /* Logotipo do topo reduzido */
+        .top-logo-bar img {
+            max-height: 34px !important;
+            width: auto !important;
+        }
+
+        /* Ajusta o espaço no topo da página */
+        .main .block-container {
+            padding-top: 75px !important;
+            max-width: 950px !important;
+        }
+
+        /* Estilização limpa para os avatares das mensagens */
+        div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
+            background-color: #d4af37 !important;
+            color: #070d1b !important;
+        }
+
+        /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
+        div.stChatMessage[data-testid="stChatMessage-assistant"] {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        /* Estilização elegante e espaçada para a barra de input do chat */
+        .stChatInput {
+            max-width: 900px !important;
+            margin: 0 auto !important;
+        }
+        
+        .stChatInput textarea {
+            background-color: rgba(19, 34, 71, 0.5) !important;
+            border: 1px solid rgba(212, 175, 55, 0.35) !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            font-size: 0.95rem !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+            padding-left: 18px !important;
+            padding-right: 18px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .stChatInput textarea:focus {
+            border-color: rgba(212, 175, 55, 0.9) !important;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
+        }
+
+        /* Estilo dos Cards em Linha Única */
+        .suggestion-card {
+            background: rgba(19, 34, 71, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 9px 4px;
+            text-align: center;
+            color: #e5e7eb;
+            font-size: 0.79rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.15);
+            color: #ffffff;
+        }
+    </style>
+    
+    <div class="top-logo-bar">
+        <img src="app/static/agente de ia lm.png" onerror="this.style.display='none'">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ============================================================
+# CONTEÚDO DA BARRA LATERAL (SIDEBAR) - DECLARADO APENAS UMA VEZ
 # ============================================================
 with st.sidebar:
-    # Logotipo pequeno no topo da sidebar
     st.image("agente de ia lm.png", width=120)
     
     st.markdown("### LaryMB AI")
@@ -708,7 +824,6 @@ with st.sidebar:
     
     st.markdown("---")
     
-    # Aviso de responsabilidade
     st.markdown(
         """
         <div style="background-color: rgba(212, 175, 55, 0.08); border-left: 3px solid #d4af37; padding: 10px; border-radius: 4px; font-size: 0.8rem; color: #cbd5e1;">
@@ -720,7 +835,6 @@ with st.sidebar:
     
     st.markdown("---")
     
-    # Seção de Suporte
     with st.expander("🛠️ Suporte / Fale conosco"):
         st.markdown("Encontrou um problema ou precisa de ajuda?")
         st.markdown("**E-mail:** sergiolmendes2026@gmail.com")
@@ -737,12 +851,11 @@ with st.sidebar:
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Botão de limpar conversa
-    if st.button("🗑️ Limpar conversa", use_container_width=True):
+    if st.button("🗑️ Limpar conversa", use_container_width=True, key="btn_limpar_conversa"):
         st.rerun()
 
 # ============================================================
-# TELA PRINCIPAL
+# TELA PRINCIPAL - DECLARADA APENAS UMA VEZ
 # ============================================================
 
 # 1. Logotipo centralizado no topo
@@ -788,9 +901,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-
-import streamlit as st
 
 # ============================================================
 # CONFIGURAÇÕES GLOBAIS DE ESTILO
