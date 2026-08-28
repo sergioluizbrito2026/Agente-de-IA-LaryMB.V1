@@ -482,32 +482,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ============================================================
-# CONTEÚDO DA BARRA LATERAL (SIDEBAR)
-# ============================================================
-with st.sidebar:
-    st.image("agente de ia lm.png", width=120)
-    
-    st.markdown("### LaryMB AI")
-    st.markdown("<p style='color: #94a3b8; font-size: 0.85rem; margin-top: -10px;'>Inteligência Artificial • V1</p>", unsafe_allow_html=True)
-    
-    st.markdown(
-        """
-        Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.
-        """,
-        unsafe_allow_html=True
-    )
-    
-    st.markdown("---")
-    
-    st.markdown(
-        """
-        <div style="background-color: rgba(212, 175, 55, 0.08); border-left: 3px solid #d4af37; padding: 10px; border-radius: 4px; font-size: 0.8rem; color: #cbd5e1;">
-            ⚠️ A LaryMB pode cometer erros. Verifique informações importantes antes de tomar decisões.
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
     
     st.markdown("---")
     
