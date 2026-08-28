@@ -2,6 +2,7 @@ import streamlit as st
 from groq import Groq
 import textwrap
 
+
 # ============================================================
 # CONFIGURAÇÃO DA PÁGINA
 # ============================================================
@@ -27,19 +28,17 @@ st.markdown(
             background-attachment: fixed !important;
         }
 
-        /* Estilização da Barra Lateral (Sidebar) com largura fixa ideal */
+        /* Restaura e estiliza a Barra Lateral (Sidebar) */
         [data-testid="stSidebar"] {
             background-color: #070d1b !important;
             border-right: 1px solid rgba(212, 175, 55, 0.2);
-            min-width: 280px !important;
-            max-width: 320px !important;
         }
 
-        /* Ajusta o espaço no topo da página e garante margem inferior para o chat não colar */
+        /* Ajusta o espaço principal da página */
         .main .block-container {
-            padding-top: 25px !important;
-            padding-bottom: 100px !important;
-            max-width: 950px !important;
+            padding-top: 30px !important;
+            padding-bottom: 90px !important;
+            max-width: 900px !important;
         }
 
         /* Estilização dos avatares das mensagens */
@@ -54,16 +53,17 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Estilização e espaçamento da barra de input do chat */
+        /* Centraliza perfeitamente e alinha a barra de input do chat */
         .stChatInput {
-            max-width: 900px !important;
-            margin: 0 auto !important;
-            bottom: 20px !important;
+            max-width: 850px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            bottom: 25px !important;
         }
         
         .stChatInput textarea {
-            background-color: rgba(19, 34, 71, 0.5) !important;
-            border: 1px solid rgba(212, 175, 55, 0.35) !important;
+            background-color: rgba(19, 34, 71, 0.6) !important;
+            border: 1px solid rgba(212, 175, 55, 0.4) !important;
             border-radius: 12px !important;
             color: #ffffff !important;
             font-size: 0.95rem !important;
@@ -184,56 +184,6 @@ with c3:
 with s3:
     st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 with c4:
-    st.markdown('<div class="suggestion-card">📊 Analisar dados</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 
-# 4. Saudação de boas-vindas
-if not st.session_state.messages:
-    st.markdown(
-        """
-        <div style="text-align: center; margin-top: 22px; margin-bottom: 15px;">
-            <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
-            <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-# ============================================================
-# HISTÓRICO E ENTRADA DO CHAT
-# ============================================================
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-if prompt := st.chat_input("Digite sua mensagem para a LaryMB..."):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
-        
-        try:
-            messages_payload = [{"role": "system", "content": SYSTEM_PROMPT}] + [
-                {"role": m["role"], "content": m["content"]} for m in st.session_state.messages
-            ]
-            
-            completion = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=messages_payload,
-                temperature=0.7,
-                stream=True,
-            )
-            
-            for chunk in completion:
-                if chunk.choices[0].delta.content:
-                    full_response += chunk.choices[0].delta.content
-                    message_placeholder.markdown(full_response + "▌")
-            
-            message_placeholder.markdown(full_response)
-        except Exception as e:
-            full_response = f"Desculpe, ocorreu um erro ao processar sua solicitação: {e}"
-            message_placeholder.markdown(full_response)
-            
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+# 4. Saudação
