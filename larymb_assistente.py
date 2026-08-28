@@ -619,8 +619,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGOTIPO COMPACTO + INPUT ELEGANTE)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGOTIPO MENOR + INPUT AJUSTADO)
 # ============================================================
 st.markdown(
     """
@@ -639,20 +641,20 @@ st.markdown(
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 6px 0;
+            padding: 4px 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Controla o tamanho reduzido e elegante do logotipo no topo */
+        /* Controla o tamanho ligeiramente menor e refinado do logotipo no topo */
         .top-logo-bar img {
-            max-height: 52px !important;
+            max-height: 42px !important;
             width: auto !important;
         }
 
         /* Ajusta o espaço no topo da página */
         .main .block-container {
-            padding-top: 95px !important;
+            padding-top: 85px !important;
             max-width: 950px !important;
         }
 
@@ -671,7 +673,7 @@ st.markdown(
             padding-right: 0px !important;
         }
 
-        /* Estilização elegante para a barra de input do chat */
+        /* Estilização elegante e espaçada para a barra de input do chat */
         .stChatInput {
             max-width: 900px !important;
             margin: 0 auto !important;
@@ -683,8 +685,10 @@ st.markdown(
             border-radius: 12px !important;
             color: #ffffff !important;
             font-size: 0.95rem !important;
-            padding-top: 10px !important;
-            padding-bottom: 10px !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+            padding-left: 18px !important; /* Afasta o texto da bordinha esquerda */
+            padding-right: 18px !important;
             transition: all 0.3s ease !important;
         }
 
@@ -720,8 +724,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo centralizado no topo com tamanho refinado
-col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
+# 1. Logotipo centralizado no topo reduzido
+col_l1, col_l2, col_l3 = st.columns([1.2, 1, 1.2])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
 
@@ -745,7 +749,7 @@ with s1:
 with c2:
     st.markdown('<div class="suggestion-card">📚 Estudar assunto</div>', unsafe_allow_html=True)
 with s2:
-    st.markdown('<div style="text_align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
 with c3:
     st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
 with s3:
@@ -763,7 +767,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 # ============================================================
 # HISTÓRICO DE MENSAGENS
 # ============================================================
