@@ -1,108 +1,94 @@
-# Estudo de Caso 1 - Agente de IA LaryMB v1 
-
-# Importa módulo para interagir com o sistema operacional
-import os
-
-# Importa a biblioteca Streamlit para criar a interface web interativa
 import streamlit as st
-
-# Importa a classe Groq para se conectar à API da plataforma Groq e acessar o LLM
 from groq import Groq
-########################################################################################
- #Configura a página do Streamlit com título, ícone, layout e estado inicial da sidebar#
-########################################################################################
+import textwrap
 
+# Configuração da página
 st.set_page_config(
-    page_title="Agente de IA LaryMB.V1",
+    page_title="LaryMB V1",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# CSS com estilo pastel azul + lilás e barra lateral prateada
+import streamlit as st
+
+# ============================================================
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (COLOCAR NO COMEÇO DO CÓDIGO)
+# ============================================================
 st.markdown(
     """
     <style>
-    /* ===== Fundo geral ===== */
-    body {
-      background-color: #f4f4f4; /* cinza claro neutro */
-      color: #333333; /* texto escuro */
-      font-family: 'Inter', 'Roboto', sans-serif;
-    }
+        /* Oculta o cabeçalho nativo do Streamlit */
+        header {visibility: hidden;}
 
-    /* ===== Sidebar ===== */
-    .sidebar {
-      background-color: #ffffff;
-      border-right: 1px solid #dddddd;
-      padding: 20px;
-      color: #555555;
-      font-size: 13px;
-    }
+        /* Cria a barra superior fixa para o logotipo */
+        .top-logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0e1117;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
 
-    .sidebar h1 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #00bcd4; /* azul turquesa moderno */
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    }
+        /* Empurra o conteúdo do chat para baixo para não ficar sob a barra fixa */
+        .main .block-container {
+            padding-top: 115px !important;
+        }
 
-    /* ===== Área principal ===== */
-    h1 {
-      font-size: 13px;
-      font-weight: 600;
-      color: #00bcd4; /* azul turquesa */
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    }
+        /* Estilização limpa para os avatares das mensagens */
+        div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
+            background-color: #d4af37 !important;
+            color: #0e1117 !important;
+        }
 
-    h2 {
-      font-size: 11px;
-      font-weight: 500;
-      color: #ff4081; /* rosa vibrante */
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    }
+        /* Estilo dos Cards Discretos */
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 10px 15px;
+            text-align: center;
+            color: #e5e7eb;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.08);
+            color: #ffffff;
+        }
 
-    p {
-      font-size: 10px;
-      line-height: 1.4;
-      color: #666666;
-    }
-
-    /* ===== Input de chat ===== */
-    .chat-input {
-      width: 100%;
-      padding: 8px;
-      font-size: 11px;
-      border-radius: 6px;
-      border: 1px solid #cccccc;
-      background-color: #ffffff;
-      color: #333333;
-    }
-
-    /* ===== Botões ===== */
-    button {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 6px;
-      background: #00bcd4; /* azul turquesa */
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-      background: #0097a7; /* azul mais escuro no hover */
-    }
+        /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
+        div.stChatMessage[data-testid="stChatMessage-assistant"] {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
     </style>
+    
+    <div class="top-logo-bar">
+        <img src="app/static/agente de ia lm.png" onerror="this.style.display='none'">
+    </div>
     """,
     unsafe_allow_html=True
 )
 
-# Define um prompt de sistema que descreve as regras e comportamento do assistente de IA
+# ============================================================
+# PROMPT MESTRE — LARYMB V1
+# ============================================================
 CUSTOM_PROMPT = """
-
-Você é LaryMB V1, uma Inteligência Artificial generalista desenvolvida pela LaryMB AI.
+ocê é LaryMB V1, uma Inteligência Artificial generalista desenvolvida pela LaryMB AI.
 
 A LaryMB V1 deve responder perguntas gerais sobre assuntos cotidianos, conhecimentos gerais, educação, tecnologia, programação, idiomas, negócios, produtividade, criatividade e outros temas dentro de sua capacidade.
 
@@ -586,129 +572,209 @@ Sua função é compreender a necessidade do usuário e fornecer a melhor respos
 LaryMB V1 — Inteligência que transforma perguntas em soluções.
 """
 
-# Cria o conteúdo da barra lateral no Streamlit
+# ============================================================
+# BARRA LATERAL (Sidebar)
+# ============================================================
 with st.sidebar:
+    st.markdown("### ⚡ LaryMB AI")
+    st.caption("Inteligência Artificial • V1")
+    st.write("Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.")
     
-    # Define o título da barra lateral
-    st.title("🤖 Agente de IA LaryMB.V1")
-    
-    # Mostra um texto explicativo sobre o assistente
-    st.markdown("Um Agente de IA focado para ajudar iniciantes.")
-    
-    # Campo para inserir a chave de API da Groq
-    groq_api_key = st.text_input(
-        "Insira sua API Key Groq", 
-        type="password",
-        help="Obtenha sua chave em https://console.groq.com/keys"
-    )
-
-    # Adiciona linhas divisórias e explicações extras na barra lateral
     st.markdown("---")
-    st.markdown("Desenvolvido para auxiliar em suas dúvidas. IA pode cometer erros. Sempre verifique as respostas.")
-           
-    # Botão de link para enviar e-mail ao suporte da DSA
-    st.link_button("✉️ E-mail Para o Suporte no Caso de Dúvidas", "mailto:sergiolmendes2026@gmail.com")
-
-# Título principal do app
-st.title("Agente de IA LaryMB v1")
-
-# Subtítulo adicional
-
-st.title("Seu guia inteligente para iniciantes")
-
-# Texto auxiliar abaixo do título
-st.caption("Faça sua pergunta e obtenha respostas, explicações e referências.")
-
-# Inicializa o histórico de mensagens na sessão, caso ainda não exista
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# Exibe todas as mensagens anteriores armazenadas no estado da sessão
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# Inicializa a variável do cliente Groq como None
-client = None
-
-# Verifica se o usuário forneceu a chave de API da Groq
-if groq_api_key:
     
-    try:
-        
-        # Cria cliente Groq com a chave de API fornecida
-        client = Groq(api_key = groq_api_key)
-    
-    except Exception as e:
-        
-        # Exibe erro caso haja problema ao inicializar cliente
-        st.sidebar.error(f"Erro ao inicializar o cliente Groq: {e}")
-        st.stop()
+    groq_api_key = st.secrets.get("GROQ_API_KEY", "")
+    if not groq_api_key:
+        groq_api_key = st.text_input(
+            "Chave da API Groq",
+            type="password",
+            help="Recomendado: configure GROQ_API_KEY nos Secrets do Streamlit Cloud.",
+        )
 
-# Caso não tenha chave, mas já existam mensagens, mostra aviso
-elif st.session_state.messages:
-     st.warning("Por favor, insira sua API Key da Groq na barra lateral para continuar.")
+    st.markdown("---")
+    st.info("⚠️ A LaryMB pode cometer erros. Verifique informações importantes antes de tomar decisões.")
 
-# Captura a entrada do usuário no chat
-if prompt := st.chat_input("Qual sua dúvida ?"):
-    
-    # Se não houver cliente válido, mostra aviso e para a execução
-    if not client:
-        st.warning("Por favor, insira sua API Key da Groq na barra lateral para começar.")
-        st.stop()
+    with st.expander("📌 Suporte / Fale conosco"):
+        st.markdown("Encontrou um problema ou precisa de ajuda?")
+        st.markdown("**E-mail:** sergiolmendes2026@gmail.com")
+        whatsapp_url = "https://wa.me/55994376755?text=Ol%C3%A1%2C%20vim%20pelo%20Agente%20IA%20LaryMB%21"
+        st.markdown(
+            f'<a href="{whatsapp_url}" target="_blank" style="display:block;text-align:center;text-decoration:none;background:#111B2E;color:#E2E8F0;border:1px solid #26344D;padding:11px;border-radius:10px;font-weight:600;">Falar no WhatsApp</a>',
+            unsafe_allow_html=True,
+        )
 
-    # Armazena a mensagem do usuário no estado da sessão
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    
-    # Exibe a mensagem do usuário no chat
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    st.markdown("---")
+    if st.button("🗑️ Limpar conversa", use_container_width=True):
+        st.session_state.messages = []
+        st.rerun()
 
-    # Prepara mensagens para enviar à API, incluindo prompt de sistema
-    messages_for_api = [{"role": "system", "content": CUSTOM_PROMPT}]
-    for msg in st.session_state.messages:
-        
-        messages_for_api.append(msg)
 
-    # Cria a resposta do assistente no chat
-    with st.chat_message("assistant"):
-        
-        with st.spinner("Analisando sua pergunta..."):
-            
-            try:
-                
-                # Chama a API da Groq para gerar a resposta do assistente
-                chat_completion = client.chat.completions.create(
-                    messages = messages_for_api,
-                    model = "openai/gpt-oss-120b", 
-                    temperature = 0.7,
-                    max_tokens = 2048,
-                )
-                
-                # Extrai a resposta gerada pela API
-                dsa_ai_resposta = chat_completion.choices[0].message.content
-                
-                # Exibe a resposta no Streamlit
-                st.markdown(dsa_ai_resposta)
-                
-                # Armazena resposta do assistente no estado da sessão
-                st.session_state.messages.append({"role": "assistant", "content": dsa_ai_resposta})
 
-            # Caso ocorra erro na comunicação com a API, exibe mensagem de erro
-            except Exception as e:
-                st.error(f"Ocorreu um erro ao se comunicar com a API da Groq: {e}")
-
+# ============================================================
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (CARDS MAIORES E ALINHAMENTO)
+# ============================================================
 st.markdown(
     """
-    <div style="text-align: center; color: gray;">
-        <hr>
-        <p> Agente de IA LaryMB v1 - Acessível, confiável e útil para quem está começando.</p>
+    <style>
+        /* Oculta o cabeçalho nativo do Streamlit */
+        header {visibility: hidden;}
+
+        /* Cria a barra superior fixa para o logotipo */
+        .top-logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0e1117;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Controla o tamanho do logotipo na barra fixa */
+        .top-logo-bar img {
+            max-height: 70px !important;
+            width: auto !important;
+        }
+
+        /* Ajusta o espaço no topo da página */
+        .main .block-container {
+            padding-top: 110px !important;
+            max-width: 900px !important; /* Centraliza e limita a largura para dar harmonia */
+        }
+
+        /* Estilização limpa para os avatares das mensagens */
+        div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
+            background-color: #d4af37 !important;
+            color: #0e1117 !important;
+        }
+
+        /* Estilo dos Cards Maiores e Mais Espaçosos */
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px; /* Aumenta o tamanho interno (altura/largura) */
+            text-align: center;
+            color: #ffffff;
+            font-size: 0.95rem; /* Letra um pouco maior */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.9);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
+        div.stChatMessage[data-testid="stChatMessage-assistant"] {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+    </style>
+    
+    <div class="top-logo-bar">
+        <img src="app/static/agente de ia lm.png" onerror="this.style.display='none'">
     </div>
     """,
     unsafe_allow_html=True
 )
 
+# 1. Logotipo perfeitamente centralizado
+col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
+with col_l2:
+    st.image("agente de ia lm.png", use_container_width=True)
 
+# 2. Frase descritiva alinhada exatamente ao centro
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 5px; margin-bottom: 25px; color: #94a3b8; font-size: 1rem;">
+        Sua inteligência artificial para aprender, criar, analisar e resolver.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
+# 3. Cards Maiores Divididos em Duas Colunas (Lado a Lado)
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
+with col2:
+    st.markdown('<div class="suggestion-card">📚 Estudar um assunto</div>', unsafe_allow_html=True)
 
+col3, col4 = st.columns(2)
+with col3:
+    st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
+with col4:
+    st.markdown('<div class="suggestion-card">📊 Analisar informações</div>', unsafe_allow_html=True)
 
+# 4. Saudação de boas-vindas
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 15px;">
+        <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
+        <p style="color: #94a3b8; font-size: 0.95rem;">Como posso ajudar você hoje?</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ============================================================
+# HISTÓRICO DE MENSAGENS
+# ============================================================
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# ============================================================
+# CLIENTE GROQ
+# ============================================================
+client = None
+if groq_api_key:
+    try:
+        client = Groq(api_key=groq_api_key)
+    except Exception as e:
+        st.sidebar.error(f"Erro ao inicializar a Groq: {e}")
+
+# ============================================================
+# CHAT E ENTRADA
+# ============================================================
+if prompt := st.chat_input("Digite uma mensagem para a Larymb..."):
+    if not client:
+        st.warning("Configure a GROQ_API_KEY nos Secrets do Streamlit Cloud ou informe a chave na barra lateral.")
+        st.stop()
+
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    messages_for_api = [{"role": "system", "content": CUSTOM_PROMPT}]
+    messages_for_api.extend(st.session_state.messages)
+
+    with st.chat_message("assistant"):
+        with st.spinner("LaryMB está pensando..."):
+            try:
+                response = client.chat.completions.create(
+                    model="openai/gpt-oss-120b",
+                    messages=messages_for_api,
+                    temperature=0.7,
+                    max_tokens=2048,
+                )
+                answer = response.choices[0].message.content or "Não consegui gerar uma resposta desta vez."
+                st.markdown(answer)
+                st.session_state.messages.append({"role": "assistant", "content": answer})
+            except Exception as e:
+                st.error("Não foi possível obter uma resposta da IA.")
+                st.caption(f"Detalhes técnicos: {e}")
