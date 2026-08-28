@@ -71,32 +71,47 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Caixa de Digitação Compacta e Fina */
+        /* Caixa de Digitação Compacta, Estilo Pílula Metálica Elegante */
         [data-testid="stChatInput"] {
             max-width: 720px !important;
             margin: 0 auto !important;
-            background: rgba(19, 34, 71, 0.6) !important;
-            backdrop-filter: blur(10px);
-            border-radius: 10px !important;
-            border: 1px solid rgba(212, 175, 55, 0.35) !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
-            padding: 0px !important;
+            background: linear-gradient(135deg, rgba(25, 35, 60, 0.85) 0%, rgba(10, 16, 32, 0.95) 100%) !important;
+            backdrop-filter: blur(12px);
+            border-radius: 30px !important;
+            border: 1px solid rgba(212, 175, 55, 0.4) !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.08) !important;
+            padding: 2px 8px !important;
         }
         
         .stChatInput textarea {
             background-color: transparent !important;
             border: none !important;
-            color: #ffffff !important;
+            color: #e2e8f0 !important;
             font-size: 0.9rem !important;
-            padding-top: 8px !important;
-            padding-bottom: 8px !important;
-            height: 40px !important;
-            max-height: 40px !important;
+            padding-top: 9px !important;
+            padding-bottom: 9px !important;
+            height: 38px !important;
+            max-height: 38px !important;
         }
 
         .stChatInput textarea:focus {
             box-shadow: none !important;
             border: none !important;
+        }
+
+        /* Botão de envio arredondado e estilizado */
+        [data-testid="stChatInput"] button {
+            background: radial-gradient(circle, #d4af37 0%, #997a15 100%) !important;
+            color: #070d1b !important;
+            border-radius: 50% !important;
+            border: none !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+            transition: all 0.2s ease;
+        }
+
+        [data-testid="stChatInput"] button:hover {
+            transform: scale(1.05);
+            background: radial-gradient(circle, #e6c555 0%, #b08c1a 100%) !important;
         }
 
         /* Estilo refinado dos Cards de Sugestão */
@@ -250,12 +265,13 @@ if prompt := st.chat_input("Digite sua mensagem para a LaryMB..."):
                 {"role": m["role"], "content": m["content"]} for m in st.session_state.messages
             ]
             
-            chat_completion = client.chat.completions.create(
-                    messages = messages_for_api,
-                    model = "openai/gpt-oss-120b", 
-                    temperature = 0.7,
-                    max_tokens = 2048,
-                )
+            completion = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=messages_payload,
+                temperature=0.7,
+                stream=True,
+            )
+            
             for chunk in completion:
                 if chunk.choices[0].delta.content:
                     full_response += chunk.choices[0].delta.content
