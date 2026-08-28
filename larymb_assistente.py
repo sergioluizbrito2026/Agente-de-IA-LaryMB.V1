@@ -625,8 +625,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (AZUL ESCURO BRILHANTE + LOGO + INPUT)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGO MENOR + CARDS CORRIGIDOS)
 # ============================================================
 st.markdown(
     """
@@ -640,7 +642,7 @@ st.markdown(
             background-attachment: fixed !important;
         }
 
-        /* Cria a barra superior fixa para o logotipo com o mesmo tom profundo */
+        /* Cria a barra superior fixa para o logotipo */
         .top-logo-bar {
             position: fixed;
             top: 0;
@@ -651,20 +653,20 @@ st.markdown(
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 4px 0;
+            padding: 3px 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
 
-        /* Controla o tamanho reduzido e refinado do logotipo no topo */
+        /* Logotipo do topo reduzido um pouco mais */
         .top-logo-bar img {
-            max-height: 42px !important;
+            max-height: 34px !important;
             width: auto !important;
         }
 
-        /* Ajusta o espaço no topo da página */
+        /* Ajusta o espaço no topo da página para acompanhar o logo menor */
         .main .block-container {
-            padding-top: 85px !important;
+            padding-top: 75px !important;
             max-width: 950px !important;
         }
 
@@ -697,7 +699,7 @@ st.markdown(
             font-size: 0.95rem !important;
             padding-top: 12px !important;
             padding-bottom: 12px !important;
-            padding-left: 18px !important; /* Afasta o texto da bordinha esquerda */
+            padding-left: 18px !important;
             padding-right: 18px !important;
             transition: all 0.3s ease !important;
         }
@@ -707,15 +709,15 @@ st.markdown(
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
         }
 
-        /* Estilo dos Cards em Linha Única com fundo escuro brilhante */
+        /* Estilo dos Cards em Linha Única */
         .suggestion-card {
             background: rgba(19, 34, 71, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 10px;
-            padding: 10px 8px;
+            padding: 9px 4px;
             text-align: center;
             color: #e5e7eb;
-            font-size: 0.82rem;
+            font-size: 0.79rem;
             font-weight: 500;
             transition: all 0.3s ease;
             white-space: nowrap;
@@ -734,43 +736,43 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo centralizado no topo reduzido
-col_l1, col_l2, col_l3 = st.columns([1.2, 1, 1.2])
+# 1. Logotipo centralizado no topo (tamanho mais compacto)
+col_l1, col_l2, col_l3 = st.columns([1.4, 0.9, 1.4])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
 
 # 2. Frase descritiva centralizada
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 2px; margin-bottom: 20px; color: #94a3b8; font-size: 0.95rem;">
+    <div style="text-align: center; margin-top: 2px; margin-bottom: 18px; color: #94a3b8; font-size: 0.9rem;">
         Sua inteligência artificial para aprender, criar, analisar e resolver.
     </div>
     """,
     unsafe_allow_html=True
 )
 
-# 3. Os 4 Cards Lado a Lado (Em uma única linha com divisores)
-c1, s1, c2, s2, c3, s3, c4 = st.columns([4, 0.3, 4, 0.3, 4, 0.3, 4])
+# 3. Os 4 Cards Lado a Lado (Proporções ajustadas para caberem perfeitos na linha)
+c1, s1, c2, s2, c3, s3, c4 = st.columns([3.8, 0.2, 3.8, 0.2, 3.8, 0.2, 3.8])
 
 with c1:
-    st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
+    st.markdown('<div class="suggestion-card">💡 Explorar ideia</div>', unsafe_allow_html=True)
 with s1:
-    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 with c2:
     st.markdown('<div class="suggestion-card">📚 Estudar assunto</div>', unsafe_allow_html=True)
 with s2:
-    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 with c3:
     st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
 with s3:
-    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 with c4:
-    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+    st.markdown('<div class="suggestion-card">📊 Analisar dados</div>', unsafe_allow_html=True)
 
 # 4. Saudação de boas-vindas
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
+    <div style="text-align: center; margin-top: 22px; margin-bottom: 15px;">
         <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
         <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
     </div>
