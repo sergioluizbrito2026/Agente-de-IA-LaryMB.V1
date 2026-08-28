@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO E DESIGN ELEGANTE
+# CONFIGURAÇÕES GLOBAIS DE ESTILO E MARCA D'ÁGUA
 # ============================================================
 st.markdown(
     """
@@ -21,16 +21,33 @@ st.markdown(
         /* Oculta o cabeçalho nativo do Streamlit */
         header {visibility: hidden;}
 
-        /* Fundo geral: Azul escuro profundo e brilhante */
+        /* Fundo geral: Azul escuro profundo e brilhante com Marca d'água elegante */
         .stApp {
             background: radial-gradient(circle at 50% 25%, #132247 0%, #070d1b 60%, #03070f 100%) !important;
             background-attachment: fixed !important;
+        }
+
+        /* Marca d'água sutil ao fundo da tela principal */
+        .stApp::before {
+            content: "LARY MB";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14vw;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.025);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: 15px;
         }
 
         /* Estilização da Barra Lateral (Sidebar) */
         [data-testid="stSidebar"] {
             background-color: #070d1b !important;
             border-right: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 10;
         }
 
         /* Ajusta o espaçamento do conteúdo principal */
@@ -38,6 +55,8 @@ st.markdown(
             padding-top: 15px !important;
             padding-bottom: 90px !important;
             max-width: 900px !important;
+            position: relative;
+            z-index: 1;
         }
 
         /* Estilização dos avatares das mensagens */
@@ -52,25 +71,26 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Container e Caixa de Digitação Elegante e Alinhada */
+        /* Caixa de Digitação Compacta e Elegante */
         [data-testid="stChatInput"] {
-            max-width: 780px !important;
+            max-width: 720px !important;
             margin: 0 auto !important;
-            background: rgba(19, 34, 71, 0.4) !important;
+            background: rgba(19, 34, 71, 0.5) !important;
             backdrop-filter: blur(10px);
-            border-radius: 16px !important;
-            border: 1px solid rgba(212, 175, 55, 0.3) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37) !important;
-            padding: 4px !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(212, 175, 55, 0.35) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+            padding: 2px !important;
         }
         
         .stChatInput textarea {
             background-color: transparent !important;
             border: none !important;
             color: #ffffff !important;
-            font-size: 0.95rem !important;
-            padding-top: 10px !important;
-            padding-bottom: 10px !important;
+            font-size: 0.9rem !important;
+            padding-top: 6px !important;
+            padding-bottom: 6px !important;
+            min-height: 38px !important;
         }
 
         .stChatInput textarea:focus {
