@@ -623,8 +623,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (AZUL BRILHANTE + LOGO MENOR + INPUT AJUSTADO)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (AZUL ESCURO BRILHANTE + LOGO + INPUT)
 # ============================================================
 st.markdown(
     """
@@ -632,25 +634,25 @@ st.markdown(
         /* Oculta o cabeçalho nativo do Streamlit */
         header {visibility: hidden;}
 
-        /* Fundo geral da aplicação com o azul brilhante elegante */
+        /* Fundo geral: Azul mais escuro, profundo e com brilho central elegante */
         .stApp {
-            background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0b132b 100%) !important;
+            background: radial-gradient(circle at 50% 25%, #132247 0%, #070d1b 60%, #03070f 100%) !important;
             background-attachment: fixed !important;
         }
 
-        /* Cria a barra superior fixa para o logotipo com o tom azulado */
+        /* Cria a barra superior fixa para o logotipo com o mesmo tom profundo */
         .top-logo-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #0b132b 0%, #1c2541 50%, #0b132b 100%);
+            background: linear-gradient(90deg, #070d1b 0%, #132247 50%, #070d1b 100%);
             z-index: 99999;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 4px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
 
@@ -669,7 +671,7 @@ st.markdown(
         /* Estilização limpa para os avatares das mensagens */
         div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
             background-color: #d4af37 !important;
-            color: #0b132b !important;
+            color: #070d1b !important;
         }
 
         /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
@@ -688,7 +690,7 @@ st.markdown(
         }
         
         .stChatInput textarea {
-            background-color: rgba(28, 37, 65, 0.6) !important;
+            background-color: rgba(19, 34, 71, 0.5) !important;
             border: 1px solid rgba(212, 175, 55, 0.35) !important;
             border-radius: 12px !important;
             color: #ffffff !important;
@@ -702,12 +704,12 @@ st.markdown(
 
         .stChatInput textarea:focus {
             border-color: rgba(212, 175, 55, 0.9) !important;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2) !important;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
         }
 
-        /* Estilo dos Cards em Linha Única com fundo azul brilhante sutil */
+        /* Estilo dos Cards em Linha Única com fundo escuro brilhante */
         .suggestion-card {
-            background: rgba(28, 37, 65, 0.4);
+            background: rgba(19, 34, 71, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 10px;
             padding: 10px 8px;
@@ -720,7 +722,7 @@ st.markdown(
         }
         .suggestion-card:hover {
             border-color: rgba(212, 175, 55, 0.8);
-            background: rgba(212, 175, 55, 0.12);
+            background: rgba(212, 175, 55, 0.15);
             color: #ffffff;
         }
     </style>
