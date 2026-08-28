@@ -71,16 +71,16 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Caixa de Digitação Compacta e Elegante */
+        /* Caixa de Digitação Compacta e Fina */
         [data-testid="stChatInput"] {
             max-width: 720px !important;
             margin: 0 auto !important;
-            background: rgba(19, 34, 71, 0.5) !important;
+            background: rgba(19, 34, 71, 0.6) !important;
             backdrop-filter: blur(10px);
-            border-radius: 12px !important;
+            border-radius: 10px !important;
             border: 1px solid rgba(212, 175, 55, 0.35) !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
-            padding: 2px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+            padding: 0px !important;
         }
         
         .stChatInput textarea {
@@ -88,9 +88,10 @@ st.markdown(
             border: none !important;
             color: #ffffff !important;
             font-size: 0.9rem !important;
-            padding-top: 6px !important;
-            padding-bottom: 6px !important;
-            min-height: 38px !important;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+            height: 40px !important;
+            max-height: 40px !important;
         }
 
         .stChatInput textarea:focus {
