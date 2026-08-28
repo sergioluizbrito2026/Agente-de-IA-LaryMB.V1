@@ -572,60 +572,223 @@ Sua função é compreender a necessidade do usuário e fornecer a melhor respos
 LaryMB V1 — Inteligência que transforma perguntas em soluções.
 """
 
+import streamlit as st
+
 # ============================================================
-# BARRA LATERAL (Sidebar)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (SIDEBAR + LOGO + FUNDO + CHAT)
+# ============================================================
+st.markdown(
+    """
+    <style>
+        /* Oculta o cabeçalho nativo do Streamlit */
+        header {visibility: hidden;}
+
+        /* Fundo geral: Azul mais escuro, profundo e com brilho central elegante */
+        .stApp {
+            background: radial-gradient(circle at 50% 25%, #132247 0%, #070d1b 60%, #03070f 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* Estilização da Barra Lateral (Sidebar) com o mesmo tom elegante */
+        [data-testid="stSidebar"] {
+            background-color: #070d1b !important;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Cria a barra superior fixa para o logotipo principal no topo */
+        .top-logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #070d1b 0%, #132247 50%, #070d1b 100%);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        /* Logotipo do topo reduzido */
+        .top-logo-bar img {
+            max-height: 34px !important;
+            width: auto !important;
+        }
+
+        /* Ajusta o espaço no topo da página */
+        .main .block-container {
+            padding-top: 75px !important;
+            max-width: 950px !important;
+        }
+
+        /* Estilização limpa para os avatares das mensagens */
+        div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
+            background-color: #d4af37 !important;
+            color: #070d1b !important;
+        }
+
+        /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
+        div.stChatMessage[data-testid="stChatMessage-assistant"] {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        /* Estilização elegante e espaçada para a barra de input do chat */
+        .stChatInput {
+            max-width: 900px !important;
+            margin: 0 auto !important;
+        }
+        
+        .stChatInput textarea {
+            background-color: rgba(19, 34, 71, 0.5) !important;
+            border: 1px solid rgba(212, 175, 55, 0.35) !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            font-size: 0.95rem !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+            padding-left: 18px !important;
+            padding-right: 18px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .stChatInput textarea:focus {
+            border-color: rgba(212, 175, 55, 0.9) !important;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
+        }
+
+        /* Estilo dos Cards em Linha Única */
+        .suggestion-card {
+            background: rgba(19, 34, 71, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 9px 4px;
+            text-align: center;
+            color: #e5e7eb;
+            font-size: 0.79rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.15);
+            color: #ffffff;
+        }
+    </style>
+    
+    <div class="top-logo-bar">
+        <img src="app/static/agente de ia lm.png" onerror="this.style.display='none'">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ============================================================
+# CONTEÚDO DA BARRA LATERAL (SIDEBAR)
 # ============================================================
 with st.sidebar:
-    st.markdown("### ⚡ LaryMB AI")
-    st.caption("Inteligência Artificial • V1")
-    st.write("Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.")
+    # Logotipo pequeno no topo da sidebar
+    st.image("agente de ia lm.png", width=120)
+    
+    st.markdown("### LaryMB AI")
+    st.markdown("<p style='color: #94a3b8; font-size: 0.85rem; margin-top: -10px;'>Inteligência Artificial • V1</p>", unsafe_allow_html=True)
+    
+    st.markdown(
+        """
+        Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.
+        """,
+        unsafe_allow_html=True
+    )
     
     st.markdown("---")
     
-    groq_api_key = st.secrets.get("GROQ_API_KEY", "")
-    if not groq_api_key:
-        groq_api_key = st.text_input(
-            "Chave da API Groq",
-            type="password",
-            help="Recomendado: configure GROQ_API_KEY nos Secrets do Streamlit Cloud.",
-        )
-
+    # Aviso de responsabilidade
+    st.markdown(
+        """
+        <div style="background-color: rgba(212, 175, 55, 0.08); border-left: 3px solid #d4af37; padding: 10px; border-radius: 4px; font-size: 0.8rem; color: #cbd5e1;">
+            ⚠️ A LaryMB pode cometer erros. Verifique informações importantes antes de tomar decisões.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
     st.markdown("---")
-    st.info("⚠️ A LaryMB pode cometer erros. Verifique informações importantes antes de tomar decisões.")
-
-    with st.expander("📌 Suporte / Fale conosco"):
+    
+    # Seção de Suporte
+    with st.expander("🛠️ Suporte / Fale conosco"):
         st.markdown("Encontrou um problema ou precisa de ajuda?")
         st.markdown("**E-mail:** sergiolmendes2026@gmail.com")
-        whatsapp_url = "https://wa.me/55994376755?text=Ol%C3%A1%2C%20vim%20pelo%20Agente%20IA%20LaryMB%21"
         st.markdown(
-            f'<a href="{whatsapp_url}" target="_blank" style="display:block;text-align:center;text-decoration:none;background:#111B2E;color:#E2E8F0;border:1px solid #26344D;padding:11px;border-radius:10px;font-weight:600;">Falar no WhatsApp</a>',
-            unsafe_allow_html=True,
+            """
+            <a href="https://wa.me/" target="_blank" style="text-decoration: none;">
+                <div style="background-color: #d4af37; color: #070d1b; text-align: center; padding: 8px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; margin-top: 10px;">
+                    Falar no WhatsApp
+                </div>
+            </a>
+            """,
+            unsafe_allow_html=True
         )
-
-    st.markdown("---")
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Botão de limpar conversa
     if st.button("🗑️ Limpar conversa", use_container_width=True):
-        st.session_state.messages = []
         st.rerun()
 
-import streamlit as st
+# ============================================================
+# TELA PRINCIPAL
+# ============================================================
 
-import streamlit as st
+# 1. Logotipo centralizado no topo
+col_l1, col_l2, col_l3 = st.columns([1.4, 0.9, 1.4])
+with col_l2:
+    st.image("agente de ia lm.png", use_container_width=True)
 
-import streamlit as st
+# 2. Frase descritiva centralizada
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 2px; margin-bottom: 18px; color: #94a3b8; font-size: 0.9rem;">
+        Sua inteligência artificial para aprender, criar, analisar e resolver.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-import streamlit as st
+# 3. Os 4 Cards Lado a Lado
+c1, s1, c2, s2, c3, s3, c4 = st.columns([3.8, 0.2, 3.8, 0.2, 3.8, 0.2, 3.8])
 
-import streamlit as st
+with c1:
+    st.markdown('<div class="suggestion-card">💡 Explorar ideia</div>', unsafe_allow_html=True)
+with s1:
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
+with c2:
+    st.markdown('<div class="suggestion-card">📚 Estudar assunto</div>', unsafe_allow_html=True)
+with s2:
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
+with c3:
+    st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
+with s3:
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
+with c4:
+    st.markdown('<div class="suggestion-card">📊 Analisar dados</div>', unsafe_allow_html=True)
 
-import streamlit as st
+# 4. Saudação de boas-vindas
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 22px; margin-bottom: 15px;">
+        <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-import streamlit as st
-
-import streamlit as st
-
-import streamlit as st
-
-import streamlit as st
 
 # ============================================================
 # CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGO MENOR + CARDS CORRIGIDOS)
