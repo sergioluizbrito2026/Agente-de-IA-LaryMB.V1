@@ -26,16 +26,16 @@ st.markdown(
             background-attachment: fixed !important;
         }
 
-        /* Estilização da Barra Lateral (Sidebar) */
+        /* Garante que a Barra Lateral apareça e funcione normalmente */
         [data-testid="stSidebar"] {
             background-color: #070d1b !important;
             border-right: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Ajusta o espaço principal da página */
+        /* Ajusta o espaçamento do conteúdo principal */
         .main .block-container {
             padding-top: 30px !important;
-            padding-bottom: 120px !important;
+            padding-bottom: 100px !important;
             max-width: 900px !important;
         }
 
@@ -51,10 +51,10 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Estilização limpa do input do chat mantendo o comportamento nativo */
-        .stChatInputContainer {
-            background-color: transparent !important;
-            padding-bottom: 10px !important;
+        /* Estilização limpa e alinhada do campo de chat nativo */
+        [data-testid="stChatInput"] {
+            max-width: 850px !important;
+            margin: 0 auto !important;
         }
         
         .stChatInput textarea {
@@ -180,7 +180,7 @@ with c3:
 with s3:
     st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 with c4:
-    st.markdown('<div class="suggestion-card">📊 Analisar dados</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
 
 # 4. Saudação de boas-vindas
 if not st.session_state.messages:
