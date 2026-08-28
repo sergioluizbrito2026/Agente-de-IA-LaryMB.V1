@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO
+# CONFIGURAÇÕES GLOBAIS DE ESTILO E DESIGN ELEGANTE
 # ============================================================
 st.markdown(
     """
@@ -35,7 +35,7 @@ st.markdown(
 
         /* Ajusta o espaçamento do conteúdo principal */
         .main .block-container {
-            padding-top: 20px !important;
+            padding-top: 15px !important;
             padding-bottom: 90px !important;
             max-width: 900px !important;
         }
@@ -52,45 +52,51 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Limita e centraliza a largura da barra de digitação do chat */
+        /* Container e Caixa de Digitação Elegante e Alinhada */
         [data-testid="stChatInput"] {
-            max-width: 750px !important;
+            max-width: 780px !important;
             margin: 0 auto !important;
+            background: rgba(19, 34, 71, 0.4) !important;
+            backdrop-filter: blur(10px);
+            border-radius: 16px !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37) !important;
+            padding: 4px !important;
         }
         
-        /* Alinhamento interno e padding perfeito da caixa de texto */
         .stChatInput textarea {
-            background-color: rgba(19, 34, 71, 0.75) !important;
-            border: 1px solid rgba(212, 175, 55, 0.4) !important;
-            border-radius: 12px !important;
+            background-color: transparent !important;
+            border: none !important;
             color: #ffffff !important;
             font-size: 0.95rem !important;
-            padding-top: 12px !important;
-            padding-bottom: 12px !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
         }
 
         .stChatInput textarea:focus {
-            border-color: rgba(212, 175, 55, 0.9) !important;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
+            box-shadow: none !important;
+            border: none !important;
         }
 
-        /* Estilo dos Cards de Sugestão Discretos em linha única */
+        /* Estilo refinado dos Cards de Sugestão */
         .suggestion-card {
-            background: rgba(19, 34, 71, 0.4);
+            background: rgba(19, 34, 71, 0.5);
             border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 8px;
-            padding: 7px 10px;
+            border-radius: 10px;
+            padding: 8px 12px;
             text-align: center;
             color: #e5e7eb;
-            font-size: 0.78rem;
+            font-size: 0.79rem;
             font-weight: 500;
             transition: all 0.3s ease;
             white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         .suggestion-card:hover {
             border-color: rgba(212, 175, 55, 0.8);
             background: rgba(212, 175, 55, 0.15);
             color: #ffffff;
+            transform: translateY(-2px);
         }
     </style>
     """,
@@ -153,7 +159,7 @@ with st.sidebar:
 # TELA PRINCIPAL
 # ============================================================
 
-# 1. Logotipo com tamanho levemente maior (colunas um pouco menores nas pontas)
+# 1. Logotipo centralizado com tamanho ideal
 col_l1, col_l2, col_l3 = st.columns([1.9, 1.2, 1.9])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
@@ -161,42 +167,44 @@ with col_l2:
 # 2. Subtítulo
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 2px; margin-bottom: 20px; color: #94a3b8; font-size: 0.85rem;">
+    <div style="text-align: center; margin-top: 2px; margin-bottom: 22px; color: #94a3b8; font-size: 0.85rem;">
         Sua inteligência artificial para aprender, criar, analisar e resolver.
     </div>
     """,
     unsafe_allow_html=True
 )
 
-# 3. Saudação de boas-vindas (aparece apenas se o chat estiver vazio)
+# 3. Bloco Inicial (Exibido apenas quando o chat estiver vazio)
 if not st.session_state.messages:
+    
+    # 4. Cards de Sugestão em cima
+    c1, s1, c2, s2, c3, s3, c4 = st.columns([3.8, 0.2, 3.8, 0.2, 3.8, 0.2, 3.8])
+
+    with c1:
+        st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
+    with s1:
+        st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
+    with c2:
+        st.markdown('<div class="suggestion-card">📚 Estudar um assunto</div>', unsafe_allow_html=True)
+    with s2:
+        st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
+    with c3:
+        st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
+    with s3:
+        st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 8px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
+    with c4:
+        st.markdown('<div class="suggestion-card">📊 Analisar informações</div>', unsafe_allow_html=True)
+
+    # 5. Saudação e "Como posso ajudar você hoje?" embaixo dos cards
     st.markdown(
         """
-        <div style="text-align: center; margin-top: 10px; margin-bottom: 12px;">
+        <div style="text-align: center; margin-top: 18px; margin-bottom: 15px;">
             <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
             <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
         </div>
         """,
         unsafe_allow_html=True
     )
-
-    # 4. Cards de Sugestão discretos abaixo da saudação (em linha única com divisores)
-    c1, s1, c2, s2, c3, s3, c4 = st.columns([3.8, 0.2, 3.8, 0.2, 3.8, 0.2, 3.8])
-
-    with c1:
-        st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
-    with s1:
-        st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 6px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
-    with c2:
-        st.markdown('<div class="suggestion-card">📚 Estudar um assunto</div>', unsafe_allow_html=True)
-    with s2:
-        st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 6px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
-    with c3:
-        st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
-    with s3:
-        st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 6px; font-size: 0.8rem;">|</div>', unsafe_allow_html=True)
-    with c4:
-        st.markdown('<div class="suggestion-card">📊 Analisar informações</div>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
