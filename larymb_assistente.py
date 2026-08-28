@@ -2,9 +2,6 @@ import streamlit as st
 from groq import Groq
 import textwrap
 
-import streamlit as st
-from groq import Groq
-
 # ============================================================
 # CONFIGURAÇÃO DA PÁGINA
 # ============================================================
