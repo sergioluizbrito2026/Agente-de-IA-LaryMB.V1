@@ -212,7 +212,7 @@ st.markdown(
 # 3. Bloco Inicial (Exibido apenas quando o chat estiver vazio)
 if not st.session_state.messages:
     
-    # 4. Cards de Sugestão em cima (proporção compacta e contínua)
+    # 4. Cards de Sugestão em cima (alinhados lado a lado)
     c1, s1, c2, s2, c3, s3, c4 = st.columns([4.2, 0.3, 4.2, 0.3, 3.2, 0.3, 4.2])
 
     with c1:
@@ -260,18 +260,19 @@ if prompt := st.chat_input("Digite sua mensagem para a LaryMB..."):
         full_response = ""
         
         try:
-            messages_payload = [{"role": "system", "content": SYSTEM_PROMPT}] + [
+            messages_for_api = [{"role": "system", "content": SYSTEM_PROMPT}] + [
                 {"role": m["role"], "content": m["content"]} for m in st.session_state.messages
             ]
             
-             chat_completion = client.chat.completions.create(
-                    messages = messages_for_api,
-                    model = "openai/gpt-oss-120b", 
-                    temperature = 0.7,
-                    max_tokens = 2048,
-                )
+            chat_completion = client.chat.completions.create(
+                messages=messages_for_api,
+                model="openai/gpt-oss-120b",
+                temperature=0.7,
+                max_tokens=2048,
+                stream=True,
+            )
             
-            for chunk in completion:
+            for chunk in chat_completion:
                 if chunk.choices[0].delta.content:
                     full_response += chunk.choices[0].delta.content
                     message_placeholder.markdown(full_response + "▌")
