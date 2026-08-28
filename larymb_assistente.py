@@ -790,8 +790,10 @@ st.markdown(
 )
 
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGO MENOR + CARDS CORRIGIDOS)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO
 # ============================================================
 st.markdown(
     """
@@ -805,7 +807,13 @@ st.markdown(
             background-attachment: fixed !important;
         }
 
-        /* Cria a barra superior fixa para o logotipo */
+        /* Estilização da Barra Lateral (Sidebar) */
+        [data-testid="stSidebar"] {
+            background-color: #070d1b !important;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Cria a barra superior fixa para o logotipo principal no topo */
         .top-logo-bar {
             position: fixed;
             top: 0;
@@ -821,13 +829,13 @@ st.markdown(
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
 
-        /* Logotipo do topo reduzido um pouco mais */
+        /* Logotipo do topo reduzido */
         .top-logo-bar img {
             max-height: 34px !important;
             width: auto !important;
         }
 
-        /* Ajusta o espaço no topo da página para acompanhar o logo menor */
+        /* Ajusta o espaço no topo da página */
         .main .block-container {
             padding-top: 75px !important;
             max-width: 950px !important;
@@ -899,7 +907,59 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo centralizado no topo (tamanho mais compacto)
+# ============================================================
+# CONTEÚDO DA BARRA LATERAL (SIDEBAR)
+# ============================================================
+with st.sidebar:
+    st.image("agente de ia lm.png", width=120)
+    
+    st.markdown("### LaryMB AI")
+    st.markdown("<p style='color: #94a3b8; font-size: 0.85rem; margin-top: -10px;'>Inteligência Artificial • V1</p>", unsafe_allow_html=True)
+    
+    st.markdown(
+        """
+        Uma IA para responder perguntas, aprender, criar, analisar informações e ajudar você a resolver problemas.
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.markdown("---")
+    
+    st.markdown(
+        """
+        <div style="background-color: rgba(212, 175, 55, 0.08); border-left: 3px solid #d4af37; padding: 10px; border-radius: 4px; font-size: 0.8rem; color: #cbd5e1;">
+            ⚠️ A LaryMB pode cometer erros. Verifique informações importantes antes de tomar decisões.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.markdown("---")
+    
+    with st.expander("🛠️ Suporte / Fale conosco"):
+        st.markdown("Encontrou um problema ou precisa de ajuda?")
+        st.markdown("**E-mail:** sergiolmendes2026@gmail.com")
+        st.markdown(
+            """
+            <a href="https://wa.me/" target="_blank" style="text-decoration: none;">
+                <div style="background-color: #d4af37; color: #070d1b; text-align: center; padding: 8px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; margin-top: 10px;">
+                    Falar no WhatsApp
+                </div>
+            </a>
+            """,
+            unsafe_allow_html=True
+        )
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    if st.button("🗑️ Limpar conversa", use_container_width=True):
+        st.rerun()
+
+# ============================================================
+# TELA PRINCIPAL (EXECUTADA APENAS UMA VEZ)
+# ============================================================
+
+# 1. Logotipo centralizado no topo
 col_l1, col_l2, col_l3 = st.columns([1.4, 0.9, 1.4])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
@@ -914,7 +974,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 3. Os 4 Cards Lado a Lado (Proporções ajustadas para caberem perfeitos na linha)
+# 3. Os 4 Cards Lado a Lado
 c1, s1, c2, s2, c3, s3, c4 = st.columns([3.8, 0.2, 3.8, 0.2, 3.8, 0.2, 3.8])
 
 with c1:
