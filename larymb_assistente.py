@@ -617,8 +617,10 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # ============================================================
-# CONFIGURAÇÕES GLOBAIS DE ESTILO (CARDS MAIORES E ALINHAMENTO)
+# CONFIGURAÇÕES GLOBAIS DE ESTILO (LOGOTIPO COMPACTO + INPUT ELEGANTE)
 # ============================================================
 st.markdown(
     """
@@ -626,7 +628,7 @@ st.markdown(
         /* Oculta o cabeçalho nativo do Streamlit */
         header {visibility: hidden;}
 
-        /* Cria a barra superior fixa para o logotipo */
+        /* Cria a barra superior fixa para o logotipo (um pouco menor) */
         .top-logo-bar {
             position: fixed;
             top: 0;
@@ -637,47 +639,27 @@ st.markdown(
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 8px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            padding: 6px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Controla o tamanho do logotipo na barra fixa */
+        /* Controla o tamanho reduzido e elegante do logotipo no topo */
         .top-logo-bar img {
-            max-height: 70px !important;
+            max-height: 52px !important;
             width: auto !important;
         }
 
         /* Ajusta o espaço no topo da página */
         .main .block-container {
-            padding-top: 110px !important;
-            max-width: 900px !important; /* Centraliza e limita a largura para dar harmonia */
+            padding-top: 95px !important;
+            max-width: 950px !important;
         }
 
         /* Estilização limpa para os avatares das mensagens */
         div.stChatMessage[data-testid="stChatMessage-user"] div[data-testid="stAvatar"] {
             background-color: #d4af37 !important;
             color: #0e1117 !important;
-        }
-
-        /* Estilo dos Cards Maiores e Mais Espaçosos */
-        .suggestion-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
-            padding: 16px 20px; /* Aumenta o tamanho interno (altura/largura) */
-            text-align: center;
-            color: #ffffff;
-            font-size: 0.95rem; /* Letra um pouco maior */
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .suggestion-card:hover {
-            border-color: rgba(212, 175, 55, 0.9);
-            background: rgba(212, 175, 55, 0.08);
-            transform: translateY(-2px);
         }
 
         /* Remove a caixa/borda ao redor da resposta da IA para ficar fluído */
@@ -688,6 +670,47 @@ st.markdown(
             padding-left: 0px !important;
             padding-right: 0px !important;
         }
+
+        /* Estilização elegante para a barra de input do chat */
+        .stChatInput {
+            max-width: 900px !important;
+            margin: 0 auto !important;
+        }
+        
+        .stChatInput textarea {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            font-size: 0.95rem !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .stChatInput textarea:focus {
+            border-color: rgba(212, 175, 55, 0.9) !important;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.15) !important;
+        }
+
+        /* Estilo dos Cards em Linha Única */
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 10px 8px;
+            text-align: center;
+            color: #e5e7eb;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .suggestion-card:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.08);
+            color: #ffffff;
+        }
     </style>
     
     <div class="top-logo-bar">
@@ -697,40 +720,45 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 1. Logotipo perfeitamente centralizado
+# 1. Logotipo centralizado no topo com tamanho refinado
 col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
 
-# 2. Frase descritiva alinhada exatamente ao centro
+# 2. Frase descritiva centralizada
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 5px; margin-bottom: 25px; color: #94a3b8; font-size: 1rem;">
+    <div style="text-align: center; margin-top: 2px; margin-bottom: 20px; color: #94a3b8; font-size: 0.95rem;">
         Sua inteligência artificial para aprender, criar, analisar e resolver.
     </div>
     """,
     unsafe_allow_html=True
 )
 
-# 3. Cards Maiores Divididos em Duas Colunas (Lado a Lado)
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
-with col2:
-    st.markdown('<div class="suggestion-card">📚 Estudar um assunto</div>', unsafe_allow_html=True)
+# 3. Os 4 Cards Lado a Lado (Em uma única linha com divisores)
+c1, s1, c2, s2, c3, s3, c4 = st.columns([4, 0.3, 4, 0.3, 4, 0.3, 4])
 
-col3, col4 = st.columns(2)
-with col3:
+with c1:
+    st.markdown('<div class="suggestion-card">💡 Explorar uma ideia</div>', unsafe_allow_html=True)
+with s1:
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+with c2:
+    st.markdown('<div class="suggestion-card">📚 Estudar assunto</div>', unsafe_allow_html=True)
+with s2:
+    st.markdown('<div style="text_align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+with c3:
     st.markdown('<div class="suggestion-card">💻 Programar</div>', unsafe_allow_html=True)
-with col4:
-    st.markdown('<div class="suggestion-card">📊 Analisar informações</div>', unsafe_allow_html=True)
+with s3:
+    st.markdown('<div style="text-align: center; color: rgba(212,175,55,0.4); margin-top: 10px;">|</div>', unsafe_allow_html=True)
+with c4:
+    st.markdown('<div class="suggestion-card">📊 Analisar dados</div>', unsafe_allow_html=True)
 
 # 4. Saudação de boas-vindas
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 30px; margin-bottom: 15px;">
+    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
         <h3 style="color: #ffffff; margin-bottom: 2px; font-weight: 700;">Olá 👋</h3>
-        <p style="color: #94a3b8; font-size: 0.95rem;">Como posso ajudar você hoje?</p>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Como posso ajudar você hoje?</p>
     </div>
     """,
     unsafe_allow_html=True
