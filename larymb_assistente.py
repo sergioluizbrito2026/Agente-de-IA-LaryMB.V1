@@ -1,5 +1,6 @@
 import streamlit as st
 from groq import Groq
+import textwrap
 
 # ============================================================
 # CONFIGURAÇÃO DA PÁGINA
@@ -57,12 +58,15 @@ st.markdown(
             margin: 0 auto !important;
         }
         
+        /* Alinhamento interno e padding perfeito da caixa de texto */
         .stChatInput textarea {
             background-color: rgba(19, 34, 71, 0.75) !important;
             border: 1px solid rgba(212, 175, 55, 0.4) !important;
             border-radius: 12px !important;
             color: #ffffff !important;
             font-size: 0.95rem !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
         }
 
         .stChatInput textarea:focus {
@@ -149,8 +153,8 @@ with st.sidebar:
 # TELA PRINCIPAL
 # ============================================================
 
-# 1. Logotipo menor e centralizado (colunas maiores nas pontas)
-col_l1, col_l2, col_l3 = st.columns([2.2, 0.6, 2.2])
+# 1. Logotipo com tamanho levemente maior (colunas um pouco menores nas pontas)
+col_l1, col_l2, col_l3 = st.columns([1.9, 1.2, 1.9])
 with col_l2:
     st.image("agente de ia lm.png", use_container_width=True)
 
