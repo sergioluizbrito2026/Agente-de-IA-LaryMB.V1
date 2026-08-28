@@ -265,12 +265,12 @@ if prompt := st.chat_input("Digite sua mensagem para a LaryMB..."):
                 {"role": m["role"], "content": m["content"]} for m in st.session_state.messages
             ]
             
-            completion = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=messages_payload,
-                temperature=0.7,
-                stream=True,
-            )
+            chat_completion = client.chat.completions.create(
+                    messages = messages_for_api,
+                    model = "openai/gpt-oss-120b", 
+                    temperature = 0.7,
+                    max_tokens = 2048,
+                )
             
             for chunk in completion:
                 if chunk.choices[0].delta.content:
