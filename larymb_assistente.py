@@ -2,6 +2,9 @@ import streamlit as st
 from groq import Groq
 import textwrap
 
+import streamlit as st
+from groq import Groq
+
 # ============================================================
 # CONFIGURAÇÃO DA PÁGINA
 # ============================================================
@@ -27,15 +30,18 @@ st.markdown(
             background-attachment: fixed !important;
         }
 
-        /* Estilização da Barra Lateral (Sidebar) */
+        /* Estilização da Barra Lateral (Sidebar) com largura fixa ideal */
         [data-testid="stSidebar"] {
             background-color: #070d1b !important;
             border-right: 1px solid rgba(212, 175, 55, 0.2);
+            min-width: 280px !important;
+            max-width: 320px !important;
         }
 
-        /* Ajusta o espaço no topo da página */
+        /* Ajusta o espaço no topo da página e garante margem inferior para o chat não colar */
         .main .block-container {
-            padding-top: 30px !important;
+            padding-top: 25px !important;
+            padding-bottom: 100px !important;
             max-width: 950px !important;
         }
 
@@ -51,10 +57,11 @@ st.markdown(
             box-shadow: none !important;
         }
 
-        /* Estilização da barra de input do chat */
+        /* Estilização e espaçamento da barra de input do chat */
         .stChatInput {
             max-width: 900px !important;
             margin: 0 auto !important;
+            bottom: 20px !important;
         }
         
         .stChatInput textarea {
@@ -215,12 +222,12 @@ if prompt := st.chat_input("Digite sua mensagem para a LaryMB..."):
                 {"role": m["role"], "content": m["content"]} for m in st.session_state.messages
             ]
             
-            chat_completion = client.chat.completions.create(
-                    messages = messages_for_api,
-                    model = "openai/gpt-oss-120b", 
-                    temperature = 0.7,
-                    max_tokens = 2048,
-                )
+            completion = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=messages_payload,
+                temperature=0.7,
+                stream=True,
+            )
             
             for chunk in completion:
                 if chunk.choices[0].delta.content:
